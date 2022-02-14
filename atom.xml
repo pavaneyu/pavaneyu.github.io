@@ -3,11 +3,11 @@
   <title>pavane</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://pavaneyu.github.io/pavaneyu.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://pavaneyu.github.io/pavaneyu.github.io/"/>
   <updated>2022-02-14T13:10:37.658Z</updated>
-  <id>http://example.com/</id>
+  <id>https://pavaneyu.github.io/pavaneyu.github.io/</id>
   
   <author>
     <name>OuyangYu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>程序员,但也是艺术家</title>
-    <link href="http://example.com/2022/02/14/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/"/>
-    <id>http://example.com/2022/02/14/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/</id>
+    <link href="https://pavaneyu.github.io/pavaneyu.github.io/2022/02/14/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/"/>
+    <id>https://pavaneyu.github.io/pavaneyu.github.io/2022/02/14/%E9%BB%91%E5%AE%A2%E4%B8%8E%E7%94%BB%E5%AE%B6/</id>
     <published>2022-02-14T09:34:16.408Z</published>
     <updated>2022-02-14T13:10:37.658Z</updated>
     
@@ -32,17 +32,17 @@
     
     
     
-    <category term="读书笔记" scheme="http://example.com/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <category term="读书笔记" scheme="https://pavaneyu.github.io/pavaneyu.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="思考" scheme="http://example.com/tags/%E6%80%9D%E8%80%83/"/>
+    <category term="思考" scheme="https://pavaneyu.github.io/pavaneyu.github.io/tags/%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
   <entry>
     <title>奇点降临</title>
-    <link href="http://example.com/2022/02/14/%E5%A5%87%E7%82%B9%E9%99%8D%E4%B8%B4/"/>
-    <id>http://example.com/2022/02/14/%E5%A5%87%E7%82%B9%E9%99%8D%E4%B8%B4/</id>
+    <link href="https://pavaneyu.github.io/pavaneyu.github.io/2022/02/14/%E5%A5%87%E7%82%B9%E9%99%8D%E4%B8%B4/"/>
+    <id>https://pavaneyu.github.io/pavaneyu.github.io/2022/02/14/%E5%A5%87%E7%82%B9%E9%99%8D%E4%B8%B4/</id>
     <published>2022-02-14T09:30:11.826Z</published>
     <updated>2022-02-14T14:00:29.732Z</updated>
     
@@ -53,17 +53,17 @@
     
     
     
-    <category term="读书笔记" scheme="http://example.com/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <category term="读书笔记" scheme="https://pavaneyu.github.io/pavaneyu.github.io/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="思考" scheme="http://example.com/tags/%E6%80%9D%E8%80%83/"/>
+    <category term="思考" scheme="https://pavaneyu.github.io/pavaneyu.github.io/tags/%E6%80%9D%E8%80%83/"/>
     
   </entry>
   
   <entry>
     <title>Hexo本地图片引用问题</title>
-    <link href="http://example.com/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/"/>
-    <id>http://example.com/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/</id>
+    <link href="https://pavaneyu.github.io/pavaneyu.github.io/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/"/>
+    <id>https://pavaneyu.github.io/pavaneyu.github.io/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/</id>
     <published>2022-02-14T04:34:04.998Z</published>
     <updated>2022-02-14T14:01:03.085Z</updated>
     
@@ -74,10 +74,10 @@
     
     
     
-    <category term="解决问题记录" scheme="http://example.com/categories/%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
+    <category term="解决问题记录" scheme="https://pavaneyu.github.io/pavaneyu.github.io/categories/%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     
     
-    <category term="博客" scheme="http://example.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+    <category term="博客" scheme="https://pavaneyu.github.io/pavaneyu.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
