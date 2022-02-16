@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="博客," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,20 +81,15 @@
 
 
 
-<meta name="description" content="记录一上午搞个人博客的图片问题">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hexo本地图片引用问题">
-<meta property="og:url" content="https://pavaneyu.github.io/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/">
+<meta name="description" content="waking in the morning ,feel excited about what you have to do next">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pavane">
+<meta property="og:url" content="https://pavaneyu.github.io/page/2/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="记录一上午搞个人博客的图片问题">
+<meta property="og:description" content="waking in the morning ,feel excited about what you have to do next">
 <meta property="og:locale">
-<meta property="og:image" content="https://s2.loli.net/2022/02/14/LYlnA417sU9E2kv.png">
-<meta property="article:published_time" content="2022-02-14T04:34:04.998Z">
-<meta property="article:modified_time" content="2022-02-14T14:01:03.085Z">
 <meta property="article:author" content="OuyangYu">
-<meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/02/14/LYlnA417sU9E2kv.png">
 
 
 
@@ -124,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/14/hexo引用本地图片问题/"/>
+  <link rel="canonical" href="https://pavaneyu.github.io/page/2/"/>
 
 
 
 
 
-  <title>Hexo本地图片引用问题 | Pavane</title>
+  <title>Pavane</title>
   
 
 
@@ -149,7 +144,8 @@
     
   
 
-  <div class="container sidebar-position-right page-post-detail">
+  <div class="container sidebar-position-right 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -242,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -274,7 +270,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo本地图片引用问题</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/" itemprop="url">Hexo本地图片引用问题</a></h1>
         
 
         <div class="post-meta">
@@ -357,25 +355,16 @@
       
 
       
-        <p>记录一上午搞个人博客的图片问题</p>
-<span id="more"></span>
-
-<p>0.以前用简书写md,导出的md图片不能正常访问,估计简书防盗链拒绝了其他地方访问其服务器上的图片.</p>
-<p>1.我对图床很排斥,以为用个图片还得先上传到网络,然后拿着url在md文件中引用,太不优雅了</p>
-<p>2.既然md文件不能存储图片信息,那么我把图片跟md文件放在一个文件夹下不就可以</p>
-<p>3.hexo 不能把md附带的文件generate到html  关联</p>
-<p>4.又是下插件,又是搞配置  ,图片是跟html在一起了,结果html对图片的引用是md文件中的链接 原封不动</p>
-<p>关键typora解析md中图片地址是 相对于md文件本身的</p>
-<p>html中  <a target="_blank" rel="noopener" href="http://localhost:4000/111/image-20220214100545449.png">http://localhost:4000/111/image-20220214100545449.png</a> 是在public目录下的啊</p>
-<p>5.看来只有更改html中对图片的引用地址了,但是hexo中哪段代码实现了这个我哪里去找啊</p>
-<p>转机</p>
-<p>6.typora设置里有图片上传的功能,查了一下确实可以 粘贴自动把图片上传到云端,并自动引用其地址,</p>
-<p>类似简书</p>
-<img src="https://s2.loli.net/2022/02/14/LYlnA417sU9E2kv.png" alt="image-20220214121843134" style="zoom: 80%;">
-
-<p>7.但是要配置2个参数,还要设置一个代理上传到图床的软件,配置好图床token,想用github当图床的</p>
-<p>结果半天没成功,选了个最简单的sm:ms当图床,5GB先用着吧,用几年应该没问题</p>
-
+        
+          <p>记录一上午搞个人博客的图片问题</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
     
@@ -390,36 +379,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2022/02/14/%E5%A5%87%E7%82%B9%E9%99%8D%E4%B8%B4/" rel="prev" title="奇点降临">
-                奇点降临 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -429,11 +396,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -441,20 +411,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -705,10 +661,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
@@ -726,18 +678,6 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://pavaneyu.github.io/2022/02/14/hexo%E5%BC%95%E7%94%A8%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/';
-          this.page.identifier = '2022/02/14/hexo引用本地图片问题/';
-          this.page.title = 'Hexo本地图片引用问题';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
     
 
   
