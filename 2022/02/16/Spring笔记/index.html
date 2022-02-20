@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="IOC  控制反转  :，即把创建对象的过程交给框架，也就是指将对象的创建、对象的存储、对象的管理交给了Spring容器原理:xml解析,工厂模式,反射 AOP面向切面:不修改源代码进行内容增强  https:&#x2F;&#x2F;repo.spring.io&#x2F;ui&#x2F;native&#x2F;release&#x2F;org&#x2F;springframework&#x2F;spring 下载https:&#x2F;&#x2F;commons.apache.org&#x2F;prop">
+<meta name="description" content="IOC  控制反转  :，即把创建对象的过程交给框架，也就是指将对象的创建、对象的存储、对象的管理交给了Spring容器原理:xml解析,工厂模式,反射 AOP面向切面:不修改源代码进行内容增强">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring笔记">
 <meta property="og:url" content="https://pavaneyu.github.io/2022/02/16/Spring%E7%AC%94%E8%AE%B0/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="IOC  控制反转  :，即把创建对象的过程交给框架，也就是指将对象的创建、对象的存储、对象的管理交给了Spring容器原理:xml解析,工厂模式,反射 AOP面向切面:不修改源代码进行内容增强  https:&#x2F;&#x2F;repo.spring.io&#x2F;ui&#x2F;native&#x2F;release&#x2F;org&#x2F;springframework&#x2F;spring 下载https:&#x2F;&#x2F;commons.apache.org&#x2F;prop">
+<meta property="og:description" content="IOC  控制反转  :，即把创建对象的过程交给框架，也就是指将对象的创建、对象的存储、对象的管理交给了Spring容器原理:xml解析,工厂模式,反射 AOP面向切面:不修改源代码进行内容增强">
 <meta property="og:locale">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19490681-8a509372829d34ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19490681-d1e4b11529ba2b3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2022-02-16T07:56:40.016Z">
-<meta property="article:modified_time" content="2022-02-16T07:56:40.286Z">
+<meta property="article:modified_time" content="2022-02-20T07:45:01.923Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19490681-8a509372829d34ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -359,7 +359,8 @@
       
         <p>IOC  控制反转  :，即把创建对象的过程交给框架，也就是指将对象的创建、对象的存储、对象的管理交给了Spring容器<br>原理:xml解析,工厂模式,反射</p>
 <p>AOP面向切面:不修改源代码进行内容增强 </p>
-<p><a target="_blank" rel="noopener" href="https://repo.spring.io/ui/native/release/org/springframework/spring">https://repo.spring.io/ui/native/release/org/springframework/spring</a> 下载<br><a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-logging/download_logging.cgi">https://commons.apache.org/proper/commons-logging/download_logging.cgi</a>  </p>
+<span id="more"></span>
+
 <p>导入5个包<br>xml</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext context = new ClassPathXmlApplicationContext(&quot;bean1.xml&quot;);</span><br><span class="line">User user = context.getBean(&quot;user&quot;, User.class); //xml对象名称和类型</span><br></pre></td></tr></table></figure>
 <p>xmlBean里用setter方法设置属性值</p>
@@ -454,8 +455,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/02/16/IDEA%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%20%20/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/02/16/IDEA%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%20%20/" rel="prev" title="IDEA 使用技巧">
+                IDEA 使用技巧 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -514,7 +515,7 @@
   <aside id="sidebar" class="sidebar">
     
     <div class="sidebar-inner">
-      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=1&height=66"></iframe>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=0&height=66"></iframe>
 
       
 
@@ -548,7 +549,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

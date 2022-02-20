@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="12345678910111213141516171819202122232425262728&#x2F;** * kotlin中类和方法的参数,可以在创建类的时候指定 * 不需要setXXX方法传入对象,如果不需要设定,采用默认值 * 不需要java里面设置null和重载方法(或者构造器)来应对多种参数组合 * 这也说明kotlin里面方法和类  类似 ,之所以去掉new,因为构造器也是一种方法,返回一个">
+<meta name="description" content="1234567891011121314151617181920212223242526272829&#x2F;** * kotlin中类和方法的参数,可以在创建类的时候指定 * 不需要setXXX方法传入对象,如果不需要设定,采用默认值 * 不需要java里面设置null和重载方法(或者构造器)来应对多种参数组合 * 这也说明kotlin里面方法和类  类似 ,之所以去掉new,因为构造器也是一种方法,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kotlin学习笔记">
 <meta property="og:url" content="https://pavaneyu.github.io/2022/02/16/kotlin%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728&#x2F;** * kotlin中类和方法的参数,可以在创建类的时候指定 * 不需要setXXX方法传入对象,如果不需要设定,采用默认值 * 不需要java里面设置null和重载方法(或者构造器)来应对多种参数组合 * 这也说明kotlin里面方法和类  类似 ,之所以去掉new,因为构造器也是一种方法,返回一个">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829&#x2F;** * kotlin中类和方法的参数,可以在创建类的时候指定 * 不需要setXXX方法传入对象,如果不需要设定,采用默认值 * 不需要java里面设置null和重载方法(或者构造器)来应对多种参数组合 * 这也说明kotlin里面方法和类  类似 ,之所以去掉new,因为构造器也是一种方法,">
 <meta property="og:locale">
 <meta property="og:image" content="https://s2.loli.net/2022/02/16/YvIi96UJCMedDmB.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/16/oXebA75JCVQfjvP.png">
@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/02/16/Hx8Wun5IRKVcwyZ.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/16/ZgAOUT2ldDokKqP.png">
 <meta property="article:published_time" content="2022-02-16T07:51:24.205Z">
-<meta property="article:modified_time" content="2022-02-16T07:51:24.471Z">
+<meta property="article:modified_time" content="2022-02-16T08:26:27.350Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/02/16/YvIi96UJCMedDmB.png">
@@ -360,7 +360,9 @@
       
 
       
-        <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * kotlin中类和方法的参数,可以在创建类的时候指定</span><br><span class="line"> * 不需要setXXX方法传入对象,如果不需要设定,采用默认值</span><br><span class="line"> * 不需要java里面设置null和重载方法(或者构造器)来应对多种参数组合</span><br><span class="line"> * 这也说明kotlin里面方法和类  类似 ,之所以去掉new,因为构造器也是一种方法,返回一个对象</span><br><span class="line"> * 只不过类名一般首字母大写,当然你小写也没关系,只不过这样看起来构造器跟方法没区别了</span><br><span class="line"> */</span><br><span class="line">class Test(val int: Int, val str: String, private val char: Char=&#x27;c&#x27;)&#123;</span><br><span class="line">    //类的参数,定义的时候要指明val,可以加访问修饰符</span><br><span class="line">    fun pl()&#123;</span><br><span class="line">        println(int+str.toInt()+char.toInt())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun funny(int: Int, str: String, char: Char=&#x27;1&#x27;) &#123;</span><br><span class="line">    println(int+str.toInt()+char.toInt())</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main() &#123;</span><br><span class="line"></span><br><span class="line">    Test(int = 2,str = &quot;345&quot;).pl()//默认参数可以不指定</span><br><span class="line">    Test( str = &quot;345&quot;, char = &#x27;2&#x27;,int = 3).pl() //指定参数名时候,顺序无所谓</span><br><span class="line">    Test(3,&quot;23&quot;).pl()</span><br><span class="line">    Test(4,&quot;222&quot;,&#x27;2&#x27;).pl()</span><br><span class="line"></span><br><span class="line">    funny(int = 3,char = &#x27;5&#x27;,str = &quot;342&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * kotlin中类和方法的参数,可以在创建类的时候指定</span><br><span class="line"> * 不需要setXXX方法传入对象,如果不需要设定,采用默认值</span><br><span class="line"> * 不需要java里面设置null和重载方法(或者构造器)来应对多种参数组合</span><br><span class="line"> * 这也说明kotlin里面方法和类  类似 ,之所以去掉new,因为构造器也是一种方法,返回一个对象</span><br><span class="line"> * 只不过类名一般首字母大写,当然你小写也没关系,只不过这样看起来构造器跟方法没区别了</span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">class Test(val int: Int, val str: String, private val char: Char=&#x27;c&#x27;)&#123;</span><br><span class="line">    //类的参数,定义的时候要指明val,可以加访问修饰符</span><br><span class="line">    fun pl()&#123;</span><br><span class="line">        println(int+str.toInt()+char.toInt())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun funny(int: Int, str: String, char: Char=&#x27;1&#x27;) &#123;</span><br><span class="line">    println(int+str.toInt()+char.toInt())</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun main() &#123;</span><br><span class="line"></span><br><span class="line">    Test(int = 2,str = &quot;345&quot;).pl()//默认参数可以不指定</span><br><span class="line">    Test( str = &quot;345&quot;, char = &#x27;2&#x27;,int = 3).pl() //指定参数名时候,顺序无所谓</span><br><span class="line">    Test(3,&quot;23&quot;).pl()</span><br><span class="line">    Test(4,&quot;222&quot;,&#x27;2&#x27;).pl()</span><br><span class="line"></span><br><span class="line">    funny(int = 3,char = &#x27;5&#x27;,str = &quot;342&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>1.返回值为函数类型的函数   是高阶函数</p>
 <p>1.kotlin 类和方法默认public    默认final 不能继承,除非open<br>2.属性引用与函数应用要 类名+::</p>
@@ -475,7 +477,7 @@
   <aside id="sidebar" class="sidebar">
     
     <div class="sidebar-inner">
-      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=1&height=66"></iframe>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=0&height=66"></iframe>
 
       
 
@@ -500,7 +502,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
