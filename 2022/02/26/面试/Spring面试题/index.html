@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Pavane" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="[toc] Springboot帮你配置了什么? webmvcautoconfuguration   读取webmvcproperties文件中的默认信息  boot配置文件加载顺序 当前项目下  config目录有没有配置文件  当前项目下有没有配置文件   resources下的config目录有没有配置文件  resources目录下有没有配置文件  boot读取配置文件@value @Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pavane">
+<meta property="og:url" content="https://pavaneyu.github.io/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/">
+<meta property="og:site_name" content="Pavane">
+<meta property="og:description" content="[toc] Springboot帮你配置了什么? webmvcautoconfuguration   读取webmvcproperties文件中的默认信息  boot配置文件加载顺序 当前项目下  config目录有没有配置文件  当前项目下有没有配置文件   resources下的config目录有没有配置文件  resources目录下有没有配置文件  boot读取配置文件@value @Co">
+<meta property="og:locale">
+<meta property="og:image" content="https://s2.loli.net/2022/02/27/trOmcIeqFvKywXJ.png">
+<meta property="article:published_time" content="2022-02-26T10:17:15.442Z">
+<meta property="article:modified_time" content="2022-03-14T11:28:43.204Z">
+<meta property="article:author" content="OuyangYu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/02/27/trOmcIeqFvKywXJ.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/26/面试/Spring面试题/"/>
+
+
+
+
+
+  <title> | Pavane</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pavane</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/home/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pavane">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-26T18:17:15+08:00">
+                2022-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/02/26/面试/Spring面试题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[toc]</p>
+<h1 id="Springboot帮你配置了什么"><a href="#Springboot帮你配置了什么" class="headerlink" title="Springboot帮你配置了什么?"></a>Springboot帮你配置了什么?</h1><ul>
+<li>webmvcautoconfuguration   读取webmvcproperties文件中的默认信息</li>
+</ul>
+<h1 id="boot配置文件加载顺序"><a href="#boot配置文件加载顺序" class="headerlink" title="boot配置文件加载顺序"></a>boot配置文件加载顺序</h1><ul>
+<li><p>当前项目下  config目录有没有配置文件</p>
+</li>
+<li><p>当前项目下有没有配置文件 </p>
+</li>
+<li><p>resources下的config目录有没有配置文件</p>
+</li>
+<li><p>resources目录下有没有配置文件</p>
+</li>
+<li><h1 id="boot读取配置文件"><a href="#boot读取配置文件" class="headerlink" title="boot读取配置文件"></a>boot读取配置文件</h1><p>@value</p>
+<p>@ConfigurationProperties</p>
+</li>
+</ul>
+<h1 id="BeanFactory-与ApplicationContext"><a href="#BeanFactory-与ApplicationContext" class="headerlink" title="BeanFactory 与ApplicationContext"></a>BeanFactory 与ApplicationContext</h1><ul>
+<li>ApplicationContext  是BeanFactory的子接口,都是一种IOC容器,都可以用getBean方法获取bean</li>
+<li>ApplicationContext  启动容器的时候就实例化bean,不会等到调用getBean方法</li>
+<li>ApplicationContext  提供了更高级的功能,使用优先级大于BeanFactory</li>
+</ul>
+<h1 id="Spring-和MVC-和boot-区别"><a href="#Spring-和MVC-和boot-区别" class="headerlink" title="Spring   和MVC  和boot  区别"></a>Spring   和MVC  和boot  区别</h1><ul>
+<li>Spring 是轻量级java框架,核心是IOC与AOP  还有其他的Spring全家桶</li>
+<li>MVC是基于Spring的MVC框架,解决web开发问题</li>
+<li>boot是为了简化开发,  convention  over configuration 原则  更高效搭建应用</li>
+</ul>
+<h1 id="MVC流程-以dispatchServlet为核心-7步"><a href="#MVC流程-以dispatchServlet为核心-7步" class="headerlink" title="MVC流程 ?   以dispatchServlet为核心   7步"></a>MVC流程 ?   以dispatchServlet为核心   7步</h1><p><img src="https://s2.loli.net/2022/02/27/trOmcIeqFvKywXJ.png" alt="SpringMVC.jpg"></p>
+<h1 id="spring中-component和-Bean的区别"><a href="#spring中-component和-Bean的区别" class="headerlink" title="spring中@component和@Bean的区别"></a>spring中@component和@Bean的区别</h1><ol>
+<li>@Component是在类上面的注解,便于这个组件被扫描到,</li>
+<li>@Bean是标在配置类的方法上面,表示将方法的返回类型作为一个Bean,默认组件名字为方法名</li>
+<li>在将第三方类注册到Spring中,由于不能修改源代码,只能在配置类里面@Bean注册到Spring</li>
+</ol>
+<h1 id="单例Bean不是线程安全的"><a href="#单例Bean不是线程安全的" class="headerlink" title="单例Bean不是线程安全的"></a>单例Bean不是线程安全的</h1><ul>
+<li><p>Bean默认单例,是线程不安全的  ,尽量使用无状态bean    也可以通过ThreadLocal解决线程安全问题</p>
+</li>
+<li><p>如果作用域设为原型,则每次都创建新的对象,则没有线程安全问题</p>
+</li>
+</ul>
+<h1 id="Spring事务隔离级别-Isolation枚举类的五个值"><a href="#Spring事务隔离级别-Isolation枚举类的五个值" class="headerlink" title="Spring事务隔离级别 Isolation枚举类的五个值 ?"></a>Spring事务隔离级别 Isolation枚举类的五个值 ?</h1><ul>
+<li><p>默认  ,也就是采用数据库的默认的隔离级别 </p>
+</li>
+<li><p>读取未提交内容  –产生<strong>脏读</strong>  幻读  不可重复读 很少用</p>
+</li>
+<li><p>读取已提交内容 – 避免了脏读  但是有幻读和不可重复读的问题</p>
+</li>
+<li><p>可重复读  -默认隔离级别 ,可能产生<strong>幻读</strong>  InnoDB引擎通过多版本并发控制来解决幻读问题</p>
+</li>
+<li><p>串行化–最高级别的隔离,通过<strong>强制事务排序</strong>,在每个读的数据行加锁,但可能有超时和锁竞争</p>
+</li>
+</ul>
+<h1 id="Spring事务传播propogation机制"><a href="#Spring事务传播propogation机制" class="headerlink" title="Spring事务传播propogation机制"></a>Spring事务传播propogation机制</h1><ul>
+<li>需要 required     默认传播机制    有就加入 没有新建</li>
+<li>需要新的  required_new              必须新建,旧的挂起</li>
+<li>支持  support          有就加入 没有算了  </li>
+<li>不支持  notSupport   不应该运行在事务中  ,有就挂起</li>
+<li>强制 mandatory       必须运行在事务中,没有就抛出异常</li>
+<li>从不  never                不应该运行在事务中,有就抛出异常</li>
+<li>嵌套  nested            嵌套运行</li>
+</ul>
+<h1 id="Spring设计模式"><a href="#Spring设计模式" class="headerlink" title="Spring设计模式"></a>Spring设计模式</h1><p>1.工厂模式   BeanFactory   Applicatio  nContext </p>
+<p>2..代理模式   AOP 用的就是动态代理</p>
+<p>3.单例  bean 默认就是单例</p>
+<p>4.观察者模式  ApplicationEvent   ApplicationListoner</p>
+<p>5.适配器模式   </p>
+<p>6.装饰者模式   wrapper   decorator</p>
+<h1 id="Spring事务实现原理"><a href="#Spring事务实现原理" class="headerlink" title="Spring事务实现原理"></a>Spring事务实现原理</h1><ul>
+<li>通过声明式事务  @Transaction </li>
+<li>通过动态代理,生成代理对象</li>
+</ul>
+<h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><ul>
+<li>在scope属性里设置</li>
+<li>单例</li>
+<li>原型</li>
+<li>request</li>
+<li>session</li>
+<li>globle session</li>
+</ul>
+<h1 id="Bean的生命周期-Spring怎么创建bean"><a href="#Bean的生命周期-Spring怎么创建bean" class="headerlink" title="Bean的生命周期(Spring怎么创建bean)"></a>Bean的生命周期(Spring怎么创建bean)</h1><p> doCreateBean() 方法中有四个步骤</p>
+<ul>
+<li>如果bean为空,createBeanInstance()<strong>实例化</strong></li>
+<li>populateBean给bena<strong>赋值</strong></li>
+<li>initializeBean()  <strong>初始化</strong>bean   <ul>
+<li>Aware接口依赖注入</li>
+<li>beanPostProcesso r 前后处理</li>
+<li>init-method  执行初始化方法</li>
+</ul>
+</li>
+<li>registerDisposableBeanIfNecessary  <strong>销毁</strong></li>
+</ul>
+<h1 id="说说aop"><a href="#说说aop" class="headerlink" title="说说aop"></a>说说aop</h1><p>面向切面编程,通过动态代理实现   ,包括切面,切点,前后置通知,增强 组成,</p>
+<p>可以在不改变原有类的情况下，能动态的添加某些功能</p>
+<p>实际中日志,  监控 ,和声明式事务 都是aop实现的</p>
+<h1 id="AOP动态代理中-jdk与cglib区别"><a href="#AOP动态代理中-jdk与cglib区别" class="headerlink" title="AOP动态代理中  jdk与cglib区别"></a>AOP动态代理中  jdk与cglib区别</h1><ul>
+<li>jdk:  前提有接口  生成动态代理类proxy   实现目标类的接口  通过反射增强方法</li>
+<li>cglib:生成的代理类 是  目标类的子类  重写父类方法</li>
+</ul>
+<h1 id="Spring中类的属性注入"><a href="#Spring中类的属性注入" class="headerlink" title="Spring中类的属性注入"></a>Spring中类的属性注入</h1><ul>
+<li>如果属性是必须的,使用构造器注入可以防止NPE</li>
+<li>如果属性是可选的,使用setter方法上加@Autowired注入</li>
+<li>filed 注入不推荐使用</li>
+</ul>
+<h1 id="Springboot常用注解"><a href="#Springboot常用注解" class="headerlink" title="Springboot常用注解"></a>Springboot常用注解</h1><ul>
+<li>启动类的SpringBootApplication  这个是一个复合注解 他包含     <ul>
+<li>SpringBootConfiguration     </li>
+<li>EnableAutoConfiguration开启自动配置  </li>
+<li>ComponentScan组件扫描</li>
+</ul>
+</li>
+<li>加在类上的注解<ul>
+<li>cotroller  ,RestController 用在控制层,其中后者将返回对象直接作为响应体</li>
+<li>@Repository  用在dao层  @Service用在服务层   通用的话就是@Component      @Autowired 按类型注入  @resouces按名称导入</li>
+</ul>
+</li>
+<li>其中加在方法上的注解  <ul>
+<li>@RequestMapping 请求映射  ,分得更细一点GetMapping  PostMapping分别处理get请求和post请求    </li>
+<li>在方法参数里面还有pathvariable  得到url路径里面的变量   @RequestParam获取请求头里面参数</li>
+<li>@bean 标在配置类的方法上面,表示将方法的返回类型作为一个组件</li>
+</ul>
+</li>
+<li>声明式事务管理  @Transactional</li>
+</ul>
+<h1 id="SpringBoot自动配置原理"><a href="#SpringBoot自动配置原理" class="headerlink" title="SpringBoot自动配置原理"></a>SpringBoot自动配置原理</h1><p><code>@SpringBootApplication</code>等同于下面三个注解：</p>
+<ul>
+<li><p><code>@SpringBootConfiguration</code></p>
+</li>
+<li><p><code>@EnableAutoConfiguration</code></p>
+<p><code>@ComponentScan</code></p>
+</li>
+</ul>
+<p>其中<code>@EnableAutoConfiguration</code>是关键(启用自动配置)，内部实际上就去加载<code>META-INF/spring.factories</code>文件的信息，然后筛选出以<code>EnableAutoConfiguration</code>为key的数据，加载到IOC容器中，实现自动配置功能！</p>
+<h1 id="自定义starter"><a href="#自定义starter" class="headerlink" title="自定义starter"></a>自定义starter</h1><ul>
+<li>包含两个信息   依赖  和 配置</li>
+<li>@ConfigurationProperties定义配置属性类,读取配置文件 </li>
+<li>编写自动配置类   @Configuration   @EnableConfigurationProperties  开启配置属性</li>
+<li>在maven中intall 到本地仓库</li>
+<li>在其他羡慕引入坐标依赖</li>
+</ul>
+<h1 id="Servlet-生命周期"><a href="#Servlet-生命周期" class="headerlink" title="Servlet 生命周期"></a>Servlet 生命周期</h1><ul>
+<li>init方法 初始化</li>
+<li>service方法  自动派遣与请求对应的（doGet，doPost）方法</li>
+<li>destroy方法</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/JVM%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=0&height=66"></iframe>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ouyang-Yu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/ravel06093773" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Springboot%E5%B8%AE%E4%BD%A0%E9%85%8D%E7%BD%AE%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Springboot帮你配置了什么?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">boot配置文件加载顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">boot读取配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BeanFactory-%E4%B8%8EApplicationContext"><span class="nav-number">4.</span> <span class="nav-text">BeanFactory 与ApplicationContext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-%E5%92%8CMVC-%E5%92%8Cboot-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">Spring   和MVC  和boot  区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC%E6%B5%81%E7%A8%8B-%E4%BB%A5dispatchServlet%E4%B8%BA%E6%A0%B8%E5%BF%83-7%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">MVC流程 ?   以dispatchServlet为核心   7步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring%E4%B8%AD-component%E5%92%8C-Bean%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">spring中@component和@Bean的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%8BBean%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84"><span class="nav-number">8.</span> <span class="nav-text">单例Bean不是线程安全的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-Isolation%E6%9E%9A%E4%B8%BE%E7%B1%BB%E7%9A%84%E4%BA%94%E4%B8%AA%E5%80%BC"><span class="nav-number">9.</span> <span class="nav-text">Spring事务隔离级别 Isolation枚举类的五个值 ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%ADpropogation%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">Spring事务传播propogation机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">Spring设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">Spring事务实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">13.</span> <span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-Spring%E6%80%8E%E4%B9%88%E5%88%9B%E5%BB%BAbean"><span class="nav-number">14.</span> <span class="nav-text">Bean的生命周期(Spring怎么创建bean)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4aop"><span class="nav-number">15.</span> <span class="nav-text">说说aop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%AD-jdk%E4%B8%8Ecglib%E5%8C%BA%E5%88%AB"><span class="nav-number">16.</span> <span class="nav-text">AOP动态代理中  jdk与cglib区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%B8%AD%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5"><span class="nav-number">17.</span> <span class="nav-text">Spring中类的属性注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Springboot%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-number">18.</span> <span class="nav-text">Springboot常用注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86"><span class="nav-number">19.</span> <span class="nav-text">SpringBoot自动配置原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89starter"><span class="nav-number">20.</span> <span class="nav-text">自定义starter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">21.</span> <span class="nav-text">Servlet 生命周期</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2021 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OuyangYu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://pavaneyu.github.io/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/';
+          this.page.identifier = '2022/02/26/面试/Spring面试题/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

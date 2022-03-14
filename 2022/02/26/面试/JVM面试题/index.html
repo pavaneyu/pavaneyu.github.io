@@ -73,8 +73,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="Pavane" type="application/atom+xml" />
 
@@ -83,20 +81,17 @@
 
 
 
-<meta name="description" content="1.equals与&#x3D;&#x3D; &#x3D;&#x3D;比较地址,即比较是否为同一个对象     equals用来比较内容,默认用&#x3D;&#x3D;实现,往往需要重写  2.重写了equals()，还要重写hashCode()？ hashcode()方法返回哈希码值  用于提高哈希表性能,  不同对象的值基本不一样  如果只重写了equals,   我们new 出了两个属性相同的">
+<meta name="description" content="内存泄漏与内存溢出无法释放已申请的内存空间 进而导致新的应用没有足够的内存空间 类加载器内存快照抓取类加载过程1.加载  &#x3D;&#x3D;双亲委派&#x3D;&#x3D;  委托父类加载器   根加载器 —&gt; 拓展加载器 —-&gt;应用程序加载器   2.链接  验证 准备   在方法区内对静态变量分配内存,并初始化 解析    JVM将常量池的   符号引用   替换为  直接引">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面试总结">
-<meta property="og:url" content="https://pavaneyu.github.io/2022/02/19/%E9%9D%A2%E8%AF%95/">
+<meta property="og:title" content="Pavane">
+<meta property="og:url" content="https://pavaneyu.github.io/2022/02/26/%E9%9D%A2%E8%AF%95/JVM%E9%9D%A2%E8%AF%95%E9%A2%98/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="1.equals与&#x3D;&#x3D; &#x3D;&#x3D;比较地址,即比较是否为同一个对象     equals用来比较内容,默认用&#x3D;&#x3D;实现,往往需要重写  2.重写了equals()，还要重写hashCode()？ hashcode()方法返回哈希码值  用于提高哈希表性能,  不同对象的值基本不一样  如果只重写了equals,   我们new 出了两个属性相同的">
+<meta property="og:description" content="内存泄漏与内存溢出无法释放已申请的内存空间 进而导致新的应用没有足够的内存空间 类加载器内存快照抓取类加载过程1.加载  &#x3D;&#x3D;双亲委派&#x3D;&#x3D;  委托父类加载器   根加载器 —&gt; 拓展加载器 —-&gt;应用程序加载器   2.链接  验证 准备   在方法区内对静态变量分配内存,并初始化 解析    JVM将常量池的   符号引用   替换为  直接引">
 <meta property="og:locale">
-<meta property="og:image" content="https://s2.loli.net/2022/02/19/ShMuALDo4X96aGT.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/19/Fn2MYA4HJavwQfd.png">
-<meta property="article:published_time" content="2022-02-19T06:02:27.542Z">
-<meta property="article:modified_time" content="2022-02-20T07:44:20.582Z">
+<meta property="article:published_time" content="2022-02-26T09:19:32.183Z">
+<meta property="article:modified_time" content="2022-03-13T00:13:22.475Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/02/19/ShMuALDo4X96aGT.png">
 
 
 
@@ -126,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/19/面试/"/>
+  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/26/面试/JVM面试题/"/>
 
 
 
 
 
-  <title>面试总结 | Pavane</title>
+  <title> | Pavane</title>
   
 
 
@@ -259,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/02/19/%E9%9D%A2%E8%AF%95/">
+    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/02/26/%E9%9D%A2%E8%AF%95/JVM%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -276,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">面试总结</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -288,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-19T14:02:27+08:00">
-                2022-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-26T17:19:32+08:00">
+                2022-02-26
               </time>
             
 
@@ -299,28 +294,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -329,9 +302,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2022/02/19/%E9%9D%A2%E8%AF%95/#comments" itemprop="discussionUrl">
+                <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/JVM%E9%9D%A2%E8%AF%95%E9%A2%98/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2022/02/19/面试/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2022/02/26/面试/JVM面试题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -359,101 +332,66 @@
       
 
       
-        <h1 id="1-equals与-x3D-x3D"><a href="#1-equals与-x3D-x3D" class="headerlink" title="1.equals与&#x3D;&#x3D;"></a>1.equals与&#x3D;&#x3D;</h1><ul>
-<li>&#x3D;&#x3D;比较地址,即比较是否为同一个对象     equals用来比较内容,默认用&#x3D;&#x3D;实现,往往需要重写</li>
-</ul>
-<h1 id="2-重写了equals-，还要重写hashCode-？"><a href="#2-重写了equals-，还要重写hashCode-？" class="headerlink" title="2.重写了equals()，还要重写hashCode()？"></a>2.重写了equals()，还要重写hashCode()？</h1><ul>
-<li><p>hashcode()方法返回哈希码值  用于提高哈希表性能,  不同对象的值基本不一样</p>
-</li>
-<li><p>如果只重写了<strong>equals</strong>,   我们new 出了两个<strong>属性相同的对象</strong>,  但是地址不同，</p>
-</li>
-<li><p>这时候equals比较属性是true，但是两个对象的hashCode是不相等的</p>
-</li>
-<li><p>也就是我们需要遵循一个原则, equals 为 true ， hashCode 必须相等</p>
-</li>
-</ul>
-<p>往HashMap添加元素的时候，需要hashcode方法定位到在数组的位置</p>
-<p>没有重写 hashCode 方法，两个对象equans为true   那么就无法定位到同一个位置，集合还是会插入元素</p>
-<p>出现重复元素,重写的equals方法就没意义了</p>
-<h1 id="3-Collecttions单列集合"><a href="#3-Collecttions单列集合" class="headerlink" title="3.Collecttions单列集合"></a>3.Collecttions单列集合</h1><ul>
-<li>List,线程不安全,有序,可以重复<ul>
-<li>arrylist 底层由数组实现,根据下标来索引,所以查询效率高,增删效率低</li>
-<li>扩容:默认容量0,第一次添加扩到10,此后1.5倍扩容  指定容量时,1.5扩容  </li>
-<li>LinkedList 底层是双向链表,增删效率高,查询效率低</li>
-</ul>
-</li>
-</ul>
+        <h1 id="内存泄漏与内存溢出"><a href="#内存泄漏与内存溢出" class="headerlink" title="内存泄漏与内存溢出"></a>内存泄漏与内存溢出</h1><p>无法释放已申请的内存空间</p>
+<p>进而导致新的应用没有足够的内存空间</p>
+<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><h1 id="内存快照抓取"><a href="#内存快照抓取" class="headerlink" title="内存快照抓取"></a>内存快照抓取</h1><h1 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h1><p>1.加载  &#x3D;&#x3D;双亲委派&#x3D;&#x3D;  委托父类加载器   根加载器 —&gt; 拓展加载器 —-&gt;应用程序加载器  </p>
+<p>2.链接</p>
 <ul>
-<li><p>Set,HashSet   无序,不可以重复</p>
+<li>验证</li>
+<li>准备   在方法区内对静态变量分配内存,并初始化</li>
+<li>解析    JVM将常量池的   符号引用   替换为  直接引用</li>
+</ul>
+<p>3.初始化</p>
 <ul>
-<li><p><em>hashset</em>底层是hashmap ,而hashmap底层是数组+链表+红黑树</p>
-<p>​                                                                                             没有就加入 </p>
-</li>
-<li><p>添加元素:1.得到元素hash值,再转成索引值 2.查table                           为真添加,</p>
-<p>​                                                                                             有就equals,   为假不添加</p>
-</li>
-<li><p>底层hashmap的扩容:</p>
+<li>执行clinit方法,   收集所有静态变量的赋值动作和静态代码块  并进行合并</li>
+<li>JVM会保证一个类的clinit方法在多线程环境下被正确地加锁  同步</li>
+</ul>
+<h1 id="强引用与软引用-为什么要不同的引用类型"><a href="#强引用与软引用-为什么要不同的引用类型" class="headerlink" title="强引用与软引用?为什么要不同的引用类型"></a>强引用与软引用?为什么要不同的引用类型</h1><p>对GC回收时机不可控的补充 </p>
 <ul>
-<li>第一次扩到16,到临界值后双倍扩容,再到新的临界值后以此类推</li>
-<li>临界值为当前容量*加载因子,默认0.75</li>
-<li>如果链表个数大于等于8,且table大小大于等于64,转成红黑树</li>
-</ul>
+<li><p>强引用   JVM不会回收 ,即使内存不足抛出OOM  如果想回收可以设为null</p>
+</li>
+<li><p>软引用   内存不足的时候才会回收</p>
+</li>
+<li><p>弱引用   无论内存是否充足,JVM都会回收,由于GC是优先级低的线程,所以不能即时发现弱引用</p>
+</li>
+<li><p>虚引用    任何时候都会被回收</p>
 </li>
 </ul>
+<h1 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h1><ul>
+<li><p>标记-清除   不需要额外空间  但是会产生内存碎片 而且需要两次扫描</p>
+</li>
+<li><p>标记-整理     </p>
+</li>
+<li><p>复制算法     对象存活度较低的时候使用,主要在新生区</p>
 </li>
 </ul>
-<h1 id="4-接口和抽象类"><a href="#4-接口和抽象类" class="headerlink" title="4.接口和抽象类"></a>4.接口和抽象类</h1><ul>
-<li><p>抽象类必须至少有一个抽象方法,子类必须重写所有抽象方法<br>如果不是抽象方法(有方法体),则可以不用重写</p>
-</li>
-<li><p>接口中方法默认没有方法体, 接口实现类必须重写所有非default方法</p>
-<p>default可以有默认实现 </p>
-</li>
-<li><p>因为单继承,继承了抽象类就不能继承其他类了</p>
-</li>
-<li><p>在一些对时间要求比较高的应用中，倾向于使用抽象类，它会比接口稍快一点。</p>
-</li>
+<p>时间复杂度最优 :复制算法&gt;标记清除&gt;标记整理</p>
+<p>空间复杂度最优:标记清除&#x3D;标记整理&gt;复制算法</p>
+<p>内存碎片最优:复制算法</p>
+<h1 id="轻GC与Full-GC-分别在什么时候"><a href="#轻GC与Full-GC-分别在什么时候" class="headerlink" title="轻GC与Full GC 分别在什么时候"></a>轻GC与Full GC 分别在什么时候</h1><p>新生代用轻GC  Full GC是全局范围的GC</p>
+<h1 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h1><p>CMS</p>
+<h1 id="JVM分为哪些区-内存结构"><a href="#JVM分为哪些区-内存结构" class="headerlink" title="JVM分为哪些区(内存结构)?"></a>JVM分为哪些区(内存结构)?</h1><ul>
+<li>堆:   新生代   (伊甸 和幸存区  from  to)    老年代    元空间   <ul>
+<li>堆是被所有线程共享,存放数组和变量,也是垃圾回收的主要区域</li>
+<li>其中在新生代 使用复制算法进行轻GC   经历了15次轻GC还未消亡就进老年代  或者根据分配担保机制大小超过时也会进入老年代</li>
+<li>老年代 使用标记清除和标记整理进行GC</li>
 </ul>
-<img src="https://s2.loli.net/2022/02/19/ShMuALDo4X96aGT.png" alt="image.png" style="zoom:50%;">
-
-
-
-<p>int和Integer</p>
-<ul>
-<li>int是基本类型,Integer是包装类型,是面向对象的</li>
-<li>未初始化 int默认为0,Integer 默认为null</li>
-<li>int 比较内容用&#x3D;&#x3D;   Integer比较内容用equals</li>
-<li>Integer在-128到127内有缓存, 在这中间不新建对象</li>
-<li>临时使用时用int, 自己分配在栈上   定义pojo时用Integer,保证序列化</li>
-</ul>
-<p>JVM分为哪些区?</p>
-<ul>
-<li>堆:被所有线程共享,存放对象和数组, 是GC的主要区域</li>
-<li>栈:每个线程都有一个栈,存放一些局部变量</li>
+</li>
+<li>栈:每个线程都有一个栈,存放一些<strong>基本类型和局部变量</strong></li>
+<li>方法区:所有线程共享,包含所有<strong>类信息和静态变量</strong></li>
 <li>程序计数器:当前线程执行的字节码的行指示器</li>
-<li>方法区:所有线程共享,包含所有类信息和静态变量</li>
 </ul>
-<p>实现多线程方式</p>
-<ul>
-<li>1.继承Thread  ,重写run()</li>
-<li>实现Runnable接口 ,重写run()\</li>
-<li>实现Callable,重写call() 有一个返回值</li>
-<li>通过线程池创建线程, 使用线程池接口ExecutorService</li>
+<h1 id="判断对象是否应该被回收"><a href="#判断对象是否应该被回收" class="headerlink" title="判断对象是否应该被回收"></a>判断对象是否应该被回收</h1><ul>
+<li>引用计数法</li>
+<li>对象可达性分析</li>
 </ul>
-<p>禁止使用Executor创建线程池?</p>
-<ul>
-<li>Executor最大线程数为2147483647,如果达到上限就会OOM</li>
-<li>workQueue参数为 new LinkedBlockingQueue(),容量为最大int值,如果瞬间请求非常大,就会OOM</li>
-</ul>
-<p>如何避免死锁</p>
-<ul>
-<li>资源互斥   threadlocal </li>
-<li>请求资源的同时,对已获得的资源保持不放</li>
-<li>不强行剥夺,未使用完资源之前不强行剥夺</li>
-<li>两个线程循环等待————-将系统资源设置标识位,规定所有线程申请资源</li>
-</ul>
-<p>多线程</p>
-<p>volatile  强制把L1L2Cash  数据 刷到主线程 ,这样每个线程都看到</p>
-<h1 id="MVC流程-以dispatchServlet为核心-7步"><a href="#MVC流程-以dispatchServlet为核心-7步" class="headerlink" title="MVC流程 ?   以dispatchServlet为核心   7步"></a>MVC流程 ?   以dispatchServlet为核心   7步</h1><p><img src="https://s2.loli.net/2022/02/19/Fn2MYA4HJavwQfd.png" alt="SpringMVC.jpg"></p>
+<h1 id="获取class对象方式"><a href="#获取class对象方式" class="headerlink" title="获取class对象方式"></a><strong>获取class对象方式</strong></h1><p>1.Class.forName()<br>2.Cat.class<br>3.对象.getClass()]<br>4.类加载器.loadClass(name) </p>
+<h1 id="内存溢出怎么办"><a href="#内存溢出怎么办" class="headerlink" title="内存溢出怎么办?"></a>内存溢出怎么办?</h1><p>1.加载数据过多   数据库查询分页                                    用的太多</p>
+<p>2.垃圾没有GC   集合是否清空,资源是否释放                      历史积累太多</p>
+<p>3.内存设定过小  JVM参数增加内存                                  给的太少</p>
+<p>4.代码逻辑问题  有没有死循环递归                              自己问题</p>
+<p>5.日志   用分析工具查看内存状态                        借助分析</p>
+<h1 id="判断废弃常量"><a href="#判断废弃常量" class="headerlink" title="判断废弃常量"></a>判断废弃常量</h1><p>假如在常量池中存在<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AD%97%E7%AC%A6%E4%B8%B2&spm=1001.2101.3001.7020">字符串</a> “abc”，如果当前没有任何String对象引用该字符串常量的话，就说明常量 “abc” 就是废弃常量，如果这时发生内存回收的话而且有必要的话，“abc” 就会被系统清理出常量池。</p>
 
       
     </div>
@@ -478,8 +416,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/02/17/MQ%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="next" title="MQ消息队列">
-                <i class="fa fa-chevron-left"></i> MQ消息队列
+              <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%B9%B6%E5%8F%91%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -487,6 +425,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -578,7 +520,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -656,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-equals%E4%B8%8E-x3D-x3D"><span class="nav-number">1.</span> <span class="nav-text">1.equals与&#x3D;&#x3D;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%87%8D%E5%86%99%E4%BA%86equals-%EF%BC%8C%E8%BF%98%E8%A6%81%E9%87%8D%E5%86%99hashCode-%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">2.重写了equals()，还要重写hashCode()？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Collecttions%E5%8D%95%E5%88%97%E9%9B%86%E5%90%88"><span class="nav-number">3.</span> <span class="nav-text">3.Collecttions单列集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">4.接口和抽象类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC%E6%B5%81%E7%A8%8B-%E4%BB%A5dispatchServlet%E4%B8%BA%E6%A0%B8%E5%BF%83-7%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">MVC流程 ?   以dispatchServlet为核心   7步</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">内存泄漏与内存溢出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%BF%AB%E7%85%A7%E6%8A%93%E5%8F%96"><span class="nav-number">3.</span> <span class="nav-text">内存快照抓取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">类加载过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E5%BC%95%E7%94%A8%E4%B8%8E%E8%BD%AF%E5%BC%95%E7%94%A8-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%8D%E5%90%8C%E7%9A%84%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">强引用与软引用?为什么要不同的引用类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC%E7%AE%97%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">GC算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%BBGC%E4%B8%8EFull-GC-%E5%88%86%E5%88%AB%E5%9C%A8%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99"><span class="nav-number">7.</span> <span class="nav-text">轻GC与Full GC 分别在什么时候</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">8.</span> <span class="nav-text">垃圾收集器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%E5%88%86%E4%B8%BA%E5%93%AA%E4%BA%9B%E5%8C%BA-%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">9.</span> <span class="nav-text">JVM分为哪些区(内存结构)?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%BA%94%E8%AF%A5%E8%A2%AB%E5%9B%9E%E6%94%B6"><span class="nav-number">10.</span> <span class="nav-text">判断对象是否应该被回收</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96class%E5%AF%B9%E8%B1%A1%E6%96%B9%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">获取class对象方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">12.</span> <span class="nav-text">内存溢出怎么办?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%BA%9F%E5%BC%83%E5%B8%B8%E9%87%8F"><span class="nav-number">13.</span> <span class="nav-text">判断废弃常量</span></a></li></ol></div>
             
 
           </div>
@@ -827,9 +769,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://pavaneyu.github.io/2022/02/19/%E9%9D%A2%E8%AF%95/';
-          this.page.identifier = '2022/02/19/面试/';
-          this.page.title = '面试总结';
+          this.page.url = 'https://pavaneyu.github.io/2022/02/26/%E9%9D%A2%E8%AF%95/JVM%E9%9D%A2%E8%AF%95%E9%A2%98/';
+          this.page.identifier = '2022/02/26/面试/JVM面试题/';
+          this.page.title = '';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Pavane" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="1.equals与&#x3D;&#x3D; &#x3D;&#x3D;比较地址,即比较是否为同一个对象     equals用来比较内容,默认用&#x3D;&#x3D;实现,往往需要重写  设计模式原则   单接依里开最合 String final  不可变 有一个常量池 ,没有找到才会新建一个对象  什么是nio  与传统io区别异步非阻塞IO ,面向缓冲的  ,应用在网络和IO读写上  反射优缺">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试之Java语言">
+<meta property="og:url" content="https://pavaneyu.github.io/2022/02/19/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95-java%E8%AF%AD%E8%A8%80/">
+<meta property="og:site_name" content="Pavane">
+<meta property="og:description" content="1.equals与&#x3D;&#x3D; &#x3D;&#x3D;比较地址,即比较是否为同一个对象     equals用来比较内容,默认用&#x3D;&#x3D;实现,往往需要重写  设计模式原则   单接依里开最合 String final  不可变 有一个常量池 ,没有找到才会新建一个对象  什么是nio  与传统io区别异步非阻塞IO ,面向缓冲的  ,应用在网络和IO读写上  反射优缺">
+<meta property="og:locale">
+<meta property="og:image" content="https://s2.loli.net/2022/02/22/VmiCusMxhb4okPD.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/19/Fn2MYA4HJavwQfd.png">
+<meta property="og:image" content="https://s2.loli.net/2022/02/23/V8nGuJAQWgfo3ae.png">
+<meta property="article:published_time" content="2022-02-19T06:02:27.542Z">
+<meta property="article:modified_time" content="2022-03-14T10:20:43.545Z">
+<meta property="article:author" content="OuyangYu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/02/22/VmiCusMxhb4okPD.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/19/面试/面试-java语言/"/>
+
+
+
+
+
+  <title>面试之Java语言 | Pavane</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pavane</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/home/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/02/19/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95-java%E8%AF%AD%E8%A8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pavane">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试之Java语言</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-19T14:02:27+08:00">
+                2022-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/02/19/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95-java%E8%AF%AD%E8%A8%80/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/02/19/面试/面试-java语言/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-equals与-x3D-x3D"><a href="#1-equals与-x3D-x3D" class="headerlink" title="1.equals与&#x3D;&#x3D;"></a>1.equals与&#x3D;&#x3D;</h1><ul>
+<li>&#x3D;&#x3D;比较地址,即比较是否为同一个对象     equals用来比较内容,默认用&#x3D;&#x3D;实现,往往需要重写</li>
+</ul>
+<p>设计模式原则   单接依里开最合</p>
+<h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><ul>
+<li>final  不可变</li>
+<li>有一个常量池 ,没有找到才会新建一个对象</li>
+</ul>
+<h1 id="什么是nio-与传统io区别"><a href="#什么是nio-与传统io区别" class="headerlink" title="什么是nio  与传统io区别"></a>什么是nio  与传统io区别</h1><p>异步非阻塞IO ,面向缓冲的  ,应用在网络和IO读写上 </p>
+<h1 id="反射优缺点-哪里用到"><a href="#反射优缺点-哪里用到" class="headerlink" title="反射优缺点  哪里用到"></a>反射优缺点  哪里用到</h1><ul>
+<li>动态加载类     增加灵活性  提高复用率</li>
+<li>性能问题   </li>
+<li>可以访问私有的属性和方法,存在内部暴露问题</li>
+<li>sprig加载配置文件   jdbc 驱动类是通过反射加载的</li>
+</ul>
+<h1 id="面向对象特征"><a href="#面向对象特征" class="headerlink" title="面向对象特征"></a>面向对象特征</h1><p>1.封装   代码复用性</p>
+<ol start="2">
+<li>继承代码复用性</li>
+</ol>
+<p>3.多态  可移植性,健壮性   变异类型  与运行类型不一样   </p>
+<h1 id="泛型擦除"><a href="#泛型擦除" class="headerlink" title="泛型擦除"></a>泛型擦除</h1><ul>
+<li><strong>泛型信息只存在于代码编译期，在进入 JVM 之前，与泛型相关的信息会被擦除掉</strong></li>
+<li>为了防止过多创建不同的类,造成过度消耗</li>
+</ul>
+<h1 id="对象内存结构"><a href="#对象内存结构" class="headerlink" title="对象内存结构"></a>对象内存结构</h1><ul>
+<li>对象头 包括  markword 和classPointer</li>
+<li>实际数据</li>
+<li>对齐填充</li>
+</ul>
+<h1 id="重写了equals-，还要重写hashCode-？"><a href="#重写了equals-，还要重写hashCode-？" class="headerlink" title="重写了equals()，还要重写hashCode()？"></a>重写了equals()，还要重写hashCode()？</h1><ul>
+<li>hashcode()方法返回hash值  ,  有个特点,相同对象hash一定一样,不同对象hash值基本不一样</li>
+<li>如果两个对象内容相同，地址不同 ,  equals为true的         但是hashCode比较是不相等的</li>
+<li>这就矛盾了,违反了 equals 为 true ， hashCode 也要相等的原则</li>
+</ul>
+<p>往HashMap添加元素的时候，需要hashcode方法定位到在数组的位置</p>
+<p>没有重写 hashCode 方法，两个对象equans为true   那么就无法定位到同一个位置，集合还是会插入元素</p>
+<p>出现重复元素,重写的equals方法就没意义了</p>
+<h1 id="3-Collecttions单列集合"><a href="#3-Collecttions单列集合" class="headerlink" title="3.Collecttions单列集合"></a>3.Collecttions单列集合</h1><ul>
+<li>List,线程不安全,有序,可以重复<ul>
+<li>arrylist 底层由数组实现,根据下标来索引,所以查询效率高,增删效率低</li>
+<li>扩容:默认容量0,第一次添加扩到10,此后1.5倍扩容  指定容量时,1.5扩容  <ul>
+<li>LinkedList 底层是双向链表,增删效率高,查询效率低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Set,HashSet   无序,不可以重复</p>
+<ul>
+<li><p><em>hashset</em>底层是hashmap ,而hashmap底层是数组+链表+红黑树</p>
+<p>​                                                                                             没有就加入 </p>
+</li>
+<li><p>添加元素:1.得到  key  hash值,再转成索引值 2.查table                            相同代替</p>
+<p>​                                                                                             有就equals,   不同   判断链表高度插入链表  </p>
+</li>
+<li><p>底层hashmap的扩容:</p>
+<ul>
+<li>第一次扩到16,到临界值后双倍扩容,</li>
+<li>临界值为当前容量*加载因子,默认0.75</li>
+<li>如果链表高度超过8,且数组长度大于64,转成红黑树</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="为什么hashmap不安全-如何线程安全地使用hashmap"><a href="#为什么hashmap不安全-如何线程安全地使用hashmap" class="headerlink" title="为什么hashmap不安全?如何线程安全地使用hashmap"></a>为什么hashmap不安全?如何线程安全地使用hashmap</h1><ul>
+<li><p>如果在<strong>「插入数据时多个线程命中了同一个槽」</strong>，可能会有数据覆盖的情况发生，导致线程不安全。</p>
+</li>
+<li><p>直接加锁</p>
+</li>
+<li><p>tashtable</p>
+</li>
+<li><p>使用ConcurrentHashMap </p>
+<h1 id="ConcurrentHashMap-的实现"><a href="#ConcurrentHashMap-的实现" class="headerlink" title="ConcurrentHashMap 的实现"></a>ConcurrentHashMap 的实现</h1><ul>
+<li><p>jdk 1.7 中，由 Segment 数据结构和 HashEntry 数组结构构成。采取分段锁来保证安全性。</p>
+</li>
+<li><p>jdk1.8之后使用 Node 数组+链表+红黑树    并发控制使用 Synchronized 和 CAS 实现</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="集合类的线程安全问题"><a href="#集合类的线程安全问题" class="headerlink" title="集合类的线程安全问题"></a>集合类的线程安全问题</h1><ul>
+<li><p>第一代线程安全<br>vector hashtable<br> 直接用sync  效率较低</p>
+</li>
+<li><p>第二代非线程安全<br>ArrayList  HashMap  但是效率高<br>要线程安全使用可以用Collecttions的静态方法 sync</p>
+</li>
+<li><p>第三代并发包下的线程安全集合<br>ConcurrentHashMap  CopyOnWriteArrayList<br>底层用lock锁  保证线程安全同时 性能也高</p>
+</li>
+</ul>
+<h1 id="JDK1-8新特性"><a href="#JDK1-8新特性" class="headerlink" title="JDK1.8新特性"></a>JDK1.8新特性</h1><ul>
+<li>接口默认方法</li>
+<li>lambla表达式简化匿名内部类    本质是一个函数式接口     就是只有一个方法的接口,描述了方法的特征  比如Comsumer  Function  当然如果某个方法满足特征,可以直接方法引用</li>
+<li>流式API </li>
+<li>新日期API,多重注解</li>
+</ul>
+<h1 id="双列集合map"><a href="#双列集合map" class="headerlink" title="双列集合map"></a>双列集合map</h1><ul>
+<li><p>hashmap继承自AbstractMap</p>
+<ul>
+<li>线程不安全,允许空值,底层是数组+链表+红黑树</li>
+<li>默认大小16,到临界值  ,2倍扩容</li>
+</ul>
+</li>
+<li><p>concurrentHashMap   线程安全</p>
+</li>
+<li><p>hashtable  继承自Dctionary     </p>
+<ul>
+<li>线程安全  不允许有空值</li>
+<li>全局锁  所以效率不高</li>
+<li>默认大小11,到临界值扩容,2n+1</li>
+</ul>
+</li>
+</ul>
+<h1 id="如何线程安全地使用HashMap"><a href="#如何线程安全地使用HashMap" class="headerlink" title="如何线程安全地使用HashMap"></a>如何线程安全地使用HashMap</h1><ul>
+<li><pre><code>Collections.synchronizedMap(hashMap)  用代理模式new一个新的map,为所有方法进行synchronize,性能较差
+</code></pre>
+</li>
+<li><p>用并发包下面的ConcurrentHashMap  采用非公平锁  拆分成多个独立的块 减少了锁冲突  性能较好</p>
+</li>
+</ul>
+<h1 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h1><p>1.构造器私有化</p>
+<p>2.私有静态volatile 成员对象</p>
+<p>3.双重检查,在同步锁里面再判断一次null,保证线程安全</p>
+<p>4.也可以静态内部类来实现</p>
+<p>5.枚举类也是一种单例模式</p>
+<h1 id="4-接口和抽象类"><a href="#4-接口和抽象类" class="headerlink" title="4.接口和抽象类"></a>4.接口和抽象类</h1><ul>
+<li><p>抽象类必须至少有一个抽象方法,子类必须重写所有抽象方法</p>
+<ul>
+<li>接口中方法默认抽象方法, 接口实现类必须重写抽象方法方法</li>
+</ul>
+<p>default可以有默认实现  </p>
+</li>
+<li><p>因为单继承,但是可以实现多个接口</p>
+</li>
+<li><p>抽象类 用来描述实体<strong>本质概念</strong>,比如猫科动物,</p>
+</li>
+<li><p>接口用来描述<strong>操作特征</strong>,比如会飞,那么实现接口的都有一个飞的方法,鸟会飞,飞机也会飞</p>
+</li>
+</ul>
+<h1 id="int和Integer"><a href="#int和Integer" class="headerlink" title="int和Integer"></a>int和Integer</h1><p>类型  初始化  比较    使用  缓存 </p>
+<ul>
+<li>int是基本类型, 存在栈上        Integer是包装类型,是面向对象的,存在堆里</li>
+<li>未初始化 int默认为0,Integer 默认为null</li>
+<li>int 比较内容用&#x3D;&#x3D;   Integer比较内容用equals</li>
+<li>Integer在-128到127内有缓存, 在这中间不新建对象</li>
+<li>临时使用时用int, 分配在栈上   定义pojo时用Integer,保证序列化</li>
+</ul>
+<h1 id="String，StringBuffer，StringBuilder的区别"><a href="#String，StringBuffer，StringBuilder的区别" class="headerlink" title="String，StringBuffer，StringBuilder的区别"></a>String，StringBuffer，StringBuilder的区别</h1><p>可变   线程安全  效率   场景</p>
+<ul>
+<li>String          不可变  每次更改都会创建新的String     适合操作少量数据     另外两个是可变的</li>
+<li>StringBuffer   线程安全       多线程操作大量数据</li>
+<li>StringBuilder  虽然线程不安全  效率最高       只适合单线程操作大量数据</li>
+</ul>
+<h1 id="浅拷贝-深拷贝"><a href="#浅拷贝-深拷贝" class="headerlink" title="浅拷贝  深拷贝"></a>浅拷贝  深拷贝</h1><ul>
+<li><p>浅拷贝 属性地址是一样的</p>
+</li>
+<li><p>如果改变a的属性,那么b的属性也会跟着变</p>
+</li>
+<li><p>深拷贝就不会出现这种问题 ,可以继承cloneable接口,在重写的clone方法里面把属性进行复制</p>
+</li>
+<li><h1 id="自定义注解"><a href="#自定义注解" class="headerlink" title="自定义注解"></a>自定义注解</h1></li>
+<li><p>@interface</p>
+</li>
+<li><p>四个元注解属性   </p>
+<ul>
+<li>target  注解目标   </li>
+<li>retention  注解生命周期   到源文件class文件还是到运行期</li>
+<li>documented  注解时候生成带javadoc文档</li>
+<li>inherited  是否被继承</li>
+</ul>
+</li>
+</ul>
+<h1 id="Class对象获取"><a href="#Class对象获取" class="headerlink" title="Class对象获取"></a>Class对象获取</h1><ul>
+<li>类名.class</li>
+<li>对象.getClass()</li>
+<li>Class.forName()</li>
+</ul>
+<h1 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h1><h1 id="mysql常用函数"><a href="#mysql常用函数" class="headerlink" title="mysql常用函数"></a>mysql常用函数</h1><h1 id="mysql引擎"><a href="#mysql引擎" class="headerlink" title="mysql引擎"></a>mysql引擎</h1><p>innodb  支持行锁 和表锁   默认隔离级别  可重复读</p>
+<p>Mylsam  只支持表锁   不支持事务   </p>
+<p><img src="https://s2.loli.net/2022/02/22/VmiCusMxhb4okPD.png" alt="image-20220222211908084"></p>
+<h1 id="覆盖索引-索引下推"><a href="#覆盖索引-索引下推" class="headerlink" title="覆盖索引?索引下推?"></a>覆盖索引?索引下推?</h1><h1 id="redis-底层推送机制"><a href="#redis-底层推送机制" class="headerlink" title="redis  底层推送机制"></a>redis  底层推送机制</h1><p>redis事务不支持回滚</p>
+<h1 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h1><h1 id="TCP四次挥手"><a href="#TCP四次挥手" class="headerlink" title="TCP四次挥手?"></a>TCP四次挥手?</h1><h1 id="MVC流程-以dispatchServlet为核心-7步"><a href="#MVC流程-以dispatchServlet为核心-7步" class="headerlink" title="MVC流程 ?   以dispatchServlet为核心   7步"></a>MVC流程 ?   以dispatchServlet为核心   7步</h1><p><img src="https://s2.loli.net/2022/02/19/Fn2MYA4HJavwQfd.png" alt="SpringMVC.jpg"></p>
+<h1 id="spring中-component和-Bean的区别"><a href="#spring中-component和-Bean的区别" class="headerlink" title="spring中@component和@Bean的区别"></a>spring中@component和@Bean的区别</h1><ol>
+<li>@Component是在类上面的注解,便于这个组件被扫描到,</li>
+<li>@Bean是标在配置类的方法上面,表示将方法的返回类型作为一个Bean,默认组件名字为方法名</li>
+<li>在将第三方类注册到Spring中,由于不能修改源代码,只能在配置类里面@Bean注册到Spring</li>
+</ol>
+<p><img src="https://s2.loli.net/2022/02/23/V8nGuJAQWgfo3ae.png" alt="image-20220223130336737"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/17/MQ%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="next" title="MQ消息队列">
+                <i class="fa fa-chevron-left"></i> MQ消息队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/22/SpringMVC%E7%AC%94%E8%AE%B0/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=0&height=66"></iframe>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ouyang-Yu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/ravel06093773" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-equals%E4%B8%8E-x3D-x3D"><span class="nav-number">1.</span> <span class="nav-text">1.equals与&#x3D;&#x3D;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#String"><span class="nav-number">2.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFnio-%E4%B8%8E%E4%BC%A0%E7%BB%9Fio%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">什么是nio  与传统io区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E4%BC%98%E7%BC%BA%E7%82%B9-%E5%93%AA%E9%87%8C%E7%94%A8%E5%88%B0"><span class="nav-number">4.</span> <span class="nav-text">反射优缺点  哪里用到</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E5%BE%81"><span class="nav-number">5.</span> <span class="nav-text">面向对象特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%93%A6%E9%99%A4"><span class="nav-number">6.</span> <span class="nav-text">泛型擦除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">对象内存结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E4%BA%86equals-%EF%BC%8C%E8%BF%98%E8%A6%81%E9%87%8D%E5%86%99hashCode-%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">重写了equals()，还要重写hashCode()？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Collecttions%E5%8D%95%E5%88%97%E9%9B%86%E5%90%88"><span class="nav-number">9.</span> <span class="nav-text">3.Collecttions单列集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88hashmap%E4%B8%8D%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%9C%B0%E4%BD%BF%E7%94%A8hashmap"><span class="nav-number">10.</span> <span class="nav-text">为什么hashmap不安全?如何线程安全地使用hashmap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ConcurrentHashMap-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">11.</span> <span class="nav-text">ConcurrentHashMap 的实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E7%B1%BB%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-number">12.</span> <span class="nav-text">集合类的线程安全问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK1-8%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">13.</span> <span class="nav-text">JDK1.8新特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E5%88%97%E9%9B%86%E5%90%88map"><span class="nav-number">14.</span> <span class="nav-text">双列集合map</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E5%9C%B0%E4%BD%BF%E7%94%A8HashMap"><span class="nav-number">15.</span> <span class="nav-text">如何线程安全地使用HashMap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B"><span class="nav-number">16.</span> <span class="nav-text">单例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">17.</span> <span class="nav-text">4.接口和抽象类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#int%E5%92%8CInteger"><span class="nav-number">18.</span> <span class="nav-text">int和Integer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#String%EF%BC%8CStringBuffer%EF%BC%8CStringBuilder%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">19.</span> <span class="nav-text">String，StringBuffer，StringBuilder的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D-%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">20.</span> <span class="nav-text">浅拷贝  深拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3"><span class="nav-number">21.</span> <span class="nav-text">自定义注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class%E5%AF%B9%E8%B1%A1%E8%8E%B7%E5%8F%96"><span class="nav-number">22.</span> <span class="nav-text">Class对象获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2"><span class="nav-number">23.</span> <span class="nav-text">多表查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">24.</span> <span class="nav-text">mysql常用函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E5%BC%95%E6%93%8E"><span class="nav-number">25.</span> <span class="nav-text">mysql引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95-%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8"><span class="nav-number">26.</span> <span class="nav-text">覆盖索引?索引下推?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis-%E5%BA%95%E5%B1%82%E6%8E%A8%E9%80%81%E6%9C%BA%E5%88%B6"><span class="nav-number">27.</span> <span class="nav-text">redis  底层推送机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JWT"><span class="nav-number">28.</span> <span class="nav-text">JWT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-number">29.</span> <span class="nav-text">TCP四次挥手?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC%E6%B5%81%E7%A8%8B-%E4%BB%A5dispatchServlet%E4%B8%BA%E6%A0%B8%E5%BF%83-7%E6%AD%A5"><span class="nav-number">30.</span> <span class="nav-text">MVC流程 ?   以dispatchServlet为核心   7步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring%E4%B8%AD-component%E5%92%8C-Bean%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">31.</span> <span class="nav-text">spring中@component和@Bean的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2021 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OuyangYu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://pavaneyu.github.io/2022/02/19/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95-java%E8%AF%AD%E8%A8%80/';
+          this.page.identifier = '2022/02/19/面试/面试-java语言/';
+          this.page.title = '面试之Java语言';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -81,20 +81,17 @@
 
 
 
-<meta name="description" content="面试问题 Redis 为什么快？ +   Redis 有哪些常用的数据结构？ 字符串类型：String 哈希类型：Hash 列表类型：List 集合类型：Set 有序集合类型zset Redis中高级用户，HyperLogLog、Geo、Pub&#x2F;Sub  Redis RDB 和 AOF 持久化的区别，如何选择？  如何解决缓存击穿、缓存穿透、雪崩问题？  如何用 Redis 实现点赞功能">
+<meta name="description" content="Http与https在http的基础上加了SSL加密传输协议,也就是安全套接层,这两个端口分别是80和443 ,另外https需要收费的CA证书 TCP与UDP传输控制协议   面向连接  通过三次握手确保可靠连接    用户数据报      无连接不可靠       数据包可能丢失 浏览器输入 URL 回车之后发生了什么 Url解析  判断是一个搜索的关键字还是合法的url   DNS解析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis笔记">
-<meta property="og:url" content="https://pavaneyu.github.io/2022/02/17/redis%E7%AC%94%E8%AE%B0/">
+<meta property="og:title" content="Pavane">
+<meta property="og:url" content="https://pavaneyu.github.io/2022/03/08/%E9%9D%A2%E8%AF%95/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%85%B6%E4%BB%96/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="面试问题 Redis 为什么快？ +   Redis 有哪些常用的数据结构？ 字符串类型：String 哈希类型：Hash 列表类型：List 集合类型：Set 有序集合类型zset Redis中高级用户，HyperLogLog、Geo、Pub&#x2F;Sub  Redis RDB 和 AOF 持久化的区别，如何选择？  如何解决缓存击穿、缓存穿透、雪崩问题？  如何用 Redis 实现点赞功能">
+<meta property="og:description" content="Http与https在http的基础上加了SSL加密传输协议,也就是安全套接层,这两个端口分别是80和443 ,另外https需要收费的CA证书 TCP与UDP传输控制协议   面向连接  通过三次握手确保可靠连接    用户数据报      无连接不可靠       数据包可能丢失 浏览器输入 URL 回车之后发生了什么 Url解析  判断是一个搜索的关键字还是合法的url   DNS解析">
 <meta property="og:locale">
-<meta property="og:image" content="https://s2.loli.net/2022/02/18/wDro6MlgPOAa4KX.png">
-<meta property="og:image" content="https://s2.loli.net/2022/02/18/qFoQg5v6bntLpXr.png">
-<meta property="article:published_time" content="2022-02-17T08:28:50.667Z">
-<meta property="article:modified_time" content="2022-03-14T05:18:07.973Z">
+<meta property="article:published_time" content="2022-03-08T08:15:07.655Z">
+<meta property="article:modified_time" content="2022-03-14T11:32:32.057Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/02/18/wDro6MlgPOAa4KX.png">
 
 
 
@@ -124,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/17/redis笔记/"/>
+  <link rel="canonical" href="https://pavaneyu.github.io/2022/03/08/面试/网络和其他/"/>
 
 
 
 
 
-  <title>Redis笔记 | Pavane</title>
+  <title> | Pavane</title>
   
 
 
@@ -257,7 +254,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/02/17/redis%E7%AC%94%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/03/08/%E9%9D%A2%E8%AF%95/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%85%B6%E4%BB%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -274,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis笔记</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -286,8 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-17T16:28:50+08:00">
-                2022-02-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-08T16:15:07+08:00">
+                2022-03-08
               </time>
             
 
@@ -297,28 +294,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -327,9 +302,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2022/02/17/redis%E7%AC%94%E8%AE%B0/#comments" itemprop="discussionUrl">
+                <a href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%85%B6%E4%BB%96/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2022/02/17/redis笔记/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2022/03/08/面试/网络和其他/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -357,86 +332,57 @@
       
 
       
-        <h1 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h1><ol>
-<li><p>Redis 为什么快？</p>
-<p>+ </p>
-</li>
-<li><p>Redis 有哪些常用的数据结构？</p>
-<p>字符串类型：String</p>
-<p>哈希类型：Hash</p>
-<p>列表类型：List</p>
-<p>集合类型：Set</p>
-<p>有序集合类型zset</p>
-<p>Redis中高级用户，HyperLogLog、Geo、Pub&#x2F;Sub</p>
-</li>
-<li><p>Redis RDB 和 AOF 持久化的区别，如何选择？</p>
-</li>
-<li><p>如何解决缓存击穿、缓存穿透、雪崩问题？</p>
-</li>
-<li><p>如何用 Redis 实现点赞功能，怎么设计 Key &#x2F; Value？</p>
-</li>
-</ol>
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ul>
-<li>基于内存，数据读写速度快，单机Redis能处理10W+的请求</li>
-<li>单线程模型，避免了多线程频繁进行上下文切换的时间消耗</li>
-<li>支持多种数据结构</li>
-<li>基于非阻塞的多路复用IO机制</li>
+        <h1 id="Http与https"><a href="#Http与https" class="headerlink" title="Http与https"></a>Http与https</h1><p>在http的基础上加了SSL加密传输协议,也就是安全套接层,这两个端口分别是80和443 ,另外https需要收费的CA证书</p>
+<h1 id="TCP与UDP"><a href="#TCP与UDP" class="headerlink" title="TCP与UDP"></a>TCP与UDP</h1><p>传输控制协议   面向连接  通过三次握手确保可靠连接   </p>
+<p>用户数据报      无连接不可靠       数据包可能丢失</p>
+<h1 id="浏览器输入-URL-回车之后发生了什么"><a href="#浏览器输入-URL-回车之后发生了什么" class="headerlink" title="浏览器输入 URL 回车之后发生了什么"></a><strong>浏览器输入 URL 回车之后发生了什么</strong></h1><ul>
+<li>Url解析  判断是一个搜索的关键字还是合法的url  </li>
+<li>DNS解析   返回域名    先从缓存 查  host文件 查   本地dns    根域名服务器</li>
+<li>建立tcp连接  </li>
+<li>浏览器发送http请求</li>
+<li>服务器相应并返回页面</li>
+<li>浏览器渲染页面</li>
 </ul>
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>- </p>
-<ol>
-<li>String ,二进制安全,即可以包含任何序列化的对象,比如图片</li>
-</ol>
-<p>最大512M</p>
-<p>简单动态字符串  类似ArrayList ,采用预分配冗余空间方式减少内存频繁分配</p>
-<p>redis任何操作都是原子操作,即不会被其他线程打断</p>
-<p>​    2.List :单键多值   底层是双向链表</p>
-<ol start="3">
-<li><p>set:去重,无序    底层是hash表,所以CRUD的复杂度是O(1)</p>
+<h1 id="Linux命令"><a href="#Linux命令" class="headerlink" title="Linux命令"></a>Linux命令</h1><ul>
+<li><p>文件与目录</p>
+<ul>
+<li>ls 文件列表</li>
+<li>cd 切换目录</li>
+<li>mkdir创建目录</li>
+<li></li>
+<li>cp 复制</li>
+<li>mv  移动</li>
+<li>find 查找文件</li>
+<li>cat查看文件</li>
+<li>tar 压缩文件</li>
+<li>grep 文本搜索</li>
+</ul>
 </li>
-<li><p>Hash:</p>
+<li><p>进程</p>
+<ul>
+<li>ps 进程列表</li>
+<li>kill </li>
+<li>top 显示进程的资源占用</li>
+</ul>
 </li>
-</ol>
-<p>​    5.有序集合zset</p>
-<p><img src="https://s2.loli.net/2022/02/18/wDro6MlgPOAa4KX.png"></p>
-<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><p>redis中事务不保证原子性,所以要手动回滚</p>
-<p><img src="https://s2.loli.net/2022/02/18/qFoQg5v6bntLpXr.png" alt="image-20220218145201511"></p>
-<h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><p>单位GB大小写无所谓</p>
-<p>导入其他文件</p>
-<p>网络  bind ip注释掉  端口</p>
-<p>通用 daemonize yes 以守护进程运行,默认no</p>
-<p>持久化    save 60  100   在60s内进行100次key的修改,就持久化操作</p>
-<p>密码</p>
-<p>内存策略</p>
-<h1 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h1><h2 id="RDB快照-默认-数据有遗失-但恢复快"><a href="#RDB快照-默认-数据有遗失-但恢复快" class="headerlink" title="RDB快照,默认  (数据有遗失,但恢复快)"></a>RDB快照,默认  (数据有遗失,但恢复快)</h2><p>1.满足自定义规则,执行flushall或者退出redis          会自动触发rdb</p>
-<p>2.优点:适合大规模数据恢复,对数据完整性不高</p>
-<p>3.缺点:操作需要时间间隔,最后一次修改的数据可能因为宕机而丢失</p>
-<h2 id="ROF日志-数据全-但恢复慢-用来追加不全的数据"><a href="#ROF日志-数据全-但恢复慢-用来追加不全的数据" class="headerlink" title="ROF日志 (数据全,但恢复慢,用来追加不全的数据)"></a>ROF日志 (数据全,但恢复慢,用来追加不全的数据)</h2><p>1.每一次修改都同步,保证数据完整性</p>
-<p>每秒同步一次,可能会丢失这一秒的数据</p>
-<p>从不同步.效率最高</p>
-<p>2.缺点,数据文件大,修复速度慢.运行效率低 </p>
-<h1 id="键过期策略"><a href="#键过期策略" class="headerlink" title="键过期策略"></a>键过期策略</h1><p>  定时过期</p>
-<p>惰性过期</p>
-<p>定期过期</p>
-<p>Redis中同时使用了惰性过期和定期过期两种过期策略。</p>
-<h1 id="内存淘汰策略-默认LRU-最近最少使用"><a href="#内存淘汰策略-默认LRU-最近最少使用" class="headerlink" title="内存淘汰策略 -默认LRU,最近最少使用"></a>内存淘汰策略 -默认LRU,最近最少使用</h1><h1 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h1><p>主以写为主,从以读为主,读写分离</p>
-<p> 作用:数据冗余.故障恢复 ,负载均衡,是高可用的基石</p>
-<p>一般单台redis服务器最大内存不超过20g</p>
-<p>  环境配置:只配置从库</p>
-<p>默认情况下,每台redis服务器都是主节点</p>
-<p>全量复制 ,增量复制</p>
-<h1 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h1><p>监控主机是否故障,如果故障根据投票数,自动替换为主机</p>
-<p>如果原来主机恢复,只能当做从机</p>
-<p>优点:基于主从复制的优点      主从可以切换,故障可以转移,提高系统可用性    </p>
-<p>缺点:不好在线扩容,配置麻烦</p>
-<h1 id="缓存穿透-查询空的对象"><a href="#缓存穿透-查询空的对象" class="headerlink" title="缓存穿透(查询空的对象)"></a>缓存穿透(查询空的对象)</h1><p>同时大量查询一个没有记录的对象,缓存没有只能去数据库查,数据库也没有结果,也不会在缓存中记录  ,所以每次这种请求就会直接到数据库</p>
-<p>1.布隆过滤器 是一种数据结构,对所有可能查询的参数以hash形式存储,在控制层进行校验,不符合就丢弃,从而避免对数据库的查询压力</p>
-<p>2.缓存空对象</p>
-<h1 id="缓存击穿-一个key-在过期的时候导致"><a href="#缓存击穿-一个key-在过期的时候导致" class="headerlink" title="缓存击穿(一个key,在过期的时候导致)"></a>缓存击穿(一个key,在过期的时候导致)</h1><p>一个key不停地在抗大并发,当key在过期的瞬间,大并发就会直接访问到数据库</p>
-<p>1.设置热点数据永不过期</p>
-<p>2.加互斥锁,保证每个key只能有一个线程去数据库查询</p>
-<h1 id="缓存雪崩-缓存集中失效或者redis宕机"><a href="#缓存雪崩-缓存集中失效或者redis宕机" class="headerlink" title="缓存雪崩 缓存集中失效或者redis宕机"></a>缓存雪崩 缓存集中失效或者redis宕机</h1><p>异地多活,保证redis高可用</p>
-<p>限流降级,加锁保证一个key只允许一个线程查询</p>
-<p>数据预热</p>
+<li><p>网络 </p>
+<ul>
+<li>netstat  -anp |grep 8080</li>
+</ul>
+</li>
+</ul>
+<h1 id="三次握手-四次挥手过程"><a href="#三次握手-四次挥手过程" class="headerlink" title="三次握手  四次挥手过程"></a>三次握手  四次挥手过程</h1><p>a-&gt;b  发送一个同步序列号SYN</p>
+<p>a&lt;-b  发送一个确认应答ACK  和同步序列号SYN </p>
+<p>a-&gt;b   发送一个确认应答</p>
+<p>a把正方向的控制位FIN置为1</p>
+<p>b确认 ACK置为1</p>
+<p>b把反方向 控制位FIN置为1</p>
+<p>a确认ACK置为1</p>
+<h1 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h1><p>200成功 </p>
+<p>3** 重定向</p>
+<p>4**客户端请求错误</p>
+<p>5**服务端错误 </p>
+<h1 id="NginX-如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思"><a href="#NginX-如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思" class="headerlink" title="NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思"></a>NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思</h1><p>**随机、加权随机、轮询、加权轮询 **<strong>源地址hash、最小连接数法</strong></p>
 
       
     </div>
@@ -461,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/02/16/%E5%9B%9E%E9%A1%BEjava%E5%9F%BA%E7%A1%80%E4%B9%8B%E4%B8%80/" rel="next" title="回顾java基础之一(多态,接口,异常,常用类,集合)">
-                <i class="fa fa-chevron-left"></i> 回顾java基础之一(多态,接口,异常,常用类,集合)
+              <a href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -471,8 +417,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/02/17/MQ%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="prev" title="MQ消息队列">
-                MQ消息队列 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/03/14/%E9%9D%A2%E8%AF%95/redis%E9%9D%A2%E8%AF%95/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -643,7 +589,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">面试问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB%E5%BF%AB%E7%85%A7-%E9%BB%98%E8%AE%A4-%E6%95%B0%E6%8D%AE%E6%9C%89%E9%81%97%E5%A4%B1-%E4%BD%86%E6%81%A2%E5%A4%8D%E5%BF%AB"><span class="nav-number">6.1.</span> <span class="nav-text">RDB快照,默认  (数据有遗失,但恢复快)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROF%E6%97%A5%E5%BF%97-%E6%95%B0%E6%8D%AE%E5%85%A8-%E4%BD%86%E6%81%A2%E5%A4%8D%E6%85%A2-%E7%94%A8%E6%9D%A5%E8%BF%BD%E5%8A%A0%E4%B8%8D%E5%85%A8%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">6.2.</span> <span class="nav-text">ROF日志 (数据全,但恢复慢,用来追加不全的数据)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%AE%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5"><span class="nav-number">7.</span> <span class="nav-text">键过期策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5-%E9%BB%98%E8%AE%A4LRU-%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%E4%BD%BF%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">内存淘汰策略 -默认LRU,最近最少使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-number">9.</span> <span class="nav-text">主从复制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="nav-number">10.</span> <span class="nav-text">哨兵模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F-%E6%9F%A5%E8%AF%A2%E7%A9%BA%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">11.</span> <span class="nav-text">缓存穿透(查询空的对象)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF-%E4%B8%80%E4%B8%AAkey-%E5%9C%A8%E8%BF%87%E6%9C%9F%E7%9A%84%E6%97%B6%E5%80%99%E5%AF%BC%E8%87%B4"><span class="nav-number">12.</span> <span class="nav-text">缓存击穿(一个key,在过期的时候导致)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9-%E7%BC%93%E5%AD%98%E9%9B%86%E4%B8%AD%E5%A4%B1%E6%95%88%E6%88%96%E8%80%85redis%E5%AE%95%E6%9C%BA"><span class="nav-number">13.</span> <span class="nav-text">缓存雪崩 缓存集中失效或者redis宕机</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Http%E4%B8%8Ehttps"><span class="nav-number">1.</span> <span class="nav-text">Http与https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP%E4%B8%8EUDP"><span class="nav-number">2.</span> <span class="nav-text">TCP与UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5-URL-%E5%9B%9E%E8%BD%A6%E4%B9%8B%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">浏览器输入 URL 回车之后发生了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Linux命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">三次握手  四次挥手过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NginX-%E5%A6%82%E4%BD%95%E5%81%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E3%80%81%E5%B8%B8%E8%A7%81%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%E3%80%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">7.</span> <span class="nav-text">NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思</span></a></li></ol></div>
             
 
           </div>
@@ -814,9 +760,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://pavaneyu.github.io/2022/02/17/redis%E7%AC%94%E8%AE%B0/';
-          this.page.identifier = '2022/02/17/redis笔记/';
-          this.page.title = 'Redis笔记';
+          this.page.url = 'https://pavaneyu.github.io/2022/03/08/%E9%9D%A2%E8%AF%95/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%85%B6%E4%BB%96/';
+          this.page.identifier = '2022/03/08/面试/网络和其他/';
+          this.page.title = '';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';

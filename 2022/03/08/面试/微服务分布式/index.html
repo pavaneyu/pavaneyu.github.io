@@ -81,15 +81,28 @@
 
 
 
-<meta name="description" content="waking in the morning ,feel excited about what you have to do next">
-<meta property="og:type" content="website">
+<meta name="description" content="[toc] SpringCloud核心组件 服务注册与发现  Eureka  nacos   Zookeeper 负债均衡  Ribbon  LoadBalancer 熔断器  Hystrix   Sentinel ] 网关  Gateway 链路调用 追踪  Feign  监控  Admin 配置中心 Nacos  Config  spring security   认证和授权 微服务优点是一种">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Pavane">
-<meta property="og:url" content="https://pavaneyu.github.io/archives/2022/">
+<meta property="og:url" content="https://pavaneyu.github.io/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="waking in the morning ,feel excited about what you have to do next">
+<meta property="og:description" content="[toc] SpringCloud核心组件 服务注册与发现  Eureka  nacos   Zookeeper 负债均衡  Ribbon  LoadBalancer 熔断器  Hystrix   Sentinel ] 网关  Gateway 链路调用 追踪  Feign  监控  Admin 配置中心 Nacos  Config  spring security   认证和授权 微服务优点是一种">
 <meta property="og:locale">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/HZfGqBp3x26lyPX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/9W6gEwDhZBPAVXN.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/KEnUgFrx6ZukcjR.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/g3admXC5GtbeAvS.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/t8dT4i2rBf9vP6b.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/amcRfVeNzsIOSEY.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/LMi3fVzlTQBsKtk.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/08/G7IhjqXwP2S1EFc.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/14/f9MSJn37xTulRsr.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/14/miL7QjePnz82BSc.png">
+<meta property="article:published_time" content="2022-03-08T06:29:14.972Z">
+<meta property="article:modified_time" content="2022-03-14T08:55:42.830Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/08/HZfGqBp3x26lyPX.png">
 
 
 
@@ -119,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="https://pavaneyu.github.io/archives/2022/"/>
+  <link rel="canonical" href="https://pavaneyu.github.io/2022/03/08/面试/微服务分布式/"/>
 
 
 
 
 
-  <title>归档 | Pavane</title>
+  <title> | Pavane</title>
   
 
 
@@ -144,7 +157,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -238,411 +251,181 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pavane">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline"></h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-03-08T14:29:14+08:00">
+                2022-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 22 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2022">2022</h1>
-          </div>
-        
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/03/08/面试/微服务分布式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/14/%E9%9D%A2%E8%AF%95/redis%E9%9D%A2%E8%AF%95/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-14T13:21:16+08:00"
-              content="2022-03-14" >
-          03-14
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%85%B6%E4%BB%96/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T16:15:07+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
+      
+        <p>[toc]</p>
+<h1 id="SpringCloud核心组件"><a href="#SpringCloud核心组件" class="headerlink" title="SpringCloud核心组件"></a>SpringCloud核心组件</h1><ul>
+<li>服务注册与发现  Eureka  nacos   Zookeeper</li>
+<li>负债均衡  Ribbon  LoadBalancer</li>
+<li>熔断器  Hystrix   Sentinel ]</li>
+<li>网关  Gateway</li>
+<li>链路调用 追踪  Feign </li>
+<li>监控  Admin</li>
+<li>配置中心 Nacos  Config</li>
+</ul>
+<p>spring security   认证和授权</p>
+<h1 id="微服务优点"><a href="#微服务优点" class="headerlink" title="微服务优点"></a>微服务优点</h1><p>是一种架构风格 是相对于单体架构而言,将模块解耦  </p>
+<p>根据系统功能 划分为不同的服务,每个服务都可以单独运行,也可以有自己的技术实现,比如使用的数据库</p>
+<h1 id="Springcloud-生态优点"><a href="#Springcloud-生态优点" class="headerlink" title="Springcloud 生态优点"></a>Springcloud 生态优点</h1><h1 id="配置中心原理"><a href="#配置中心原理" class="headerlink" title="配置中心原理"></a>配置中心原理</h1><p>将服务所需要的配置信息 从配置仓库同步到本地    达到统一配置管理目的]</p>
+<p><img src="https://s2.loli.net/2022/03/08/HZfGqBp3x26lyPX.png" alt="image-20220308144009768"></p>
+<p><img src="https://s2.loli.net/2022/03/08/9W6gEwDhZBPAVXN.png" alt="image-20220308144043345"></p>
+<p><img src="https://s2.loli.net/2022/03/08/KEnUgFrx6ZukcjR.png" alt="image-20220308144144944"></p>
+<p><img src="https://s2.loli.net/2022/03/08/g3admXC5GtbeAvS.png" alt="image-20220308144304586"></p>
+<p><img src="https://s2.loli.net/2022/03/08/t8dT4i2rBf9vP6b.png" alt="image-20220308144336398"></p>
+<p><img src="https://s2.loli.net/2022/03/08/amcRfVeNzsIOSEY.png" alt="image-20220308144423438"></p>
+<p>​      </p>
+<p><img src="https://s2.loli.net/2022/03/08/LMi3fVzlTQBsKtk.png" alt="image-20220308145154187"></p>
+<p><img src="https://s2.loli.net/2022/03/08/G7IhjqXwP2S1EFc.png" alt="image-20220308145222573"></p>
+<img src="https://s2.loli.net/2022/03/14/f9MSJn37xTulRsr.png" alt="image-20220314165212925" style="zoom:150%;">
 
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-08T14:29:14+08:00"
-              content="2022-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+<p><img src="https://s2.loli.net/2022/03/14/miL7QjePnz82BSc.png" alt="image-20220314165536319"></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-26T18:17:15+08:00"
-              content="2022-02-26" >
-          02-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/26/%E9%9D%A2%E8%AF%95/JVM%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-26T17:19:32+08:00"
-              content="2022-02-26" >
-          02-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/26/%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%B9%B6%E5%8F%91%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-26T17:19:32+08:00"
-              content="2022-02-26" >
-          02-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/22/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0webflux/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-22T21:56:55+08:00"
-              content="2022-02-22" >
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/22/SpringMVC%E7%AC%94%E8%AE%B0/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-22T17:08:51+08:00"
-              content="2022-02-22" >
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/19/%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95-java%E8%AF%AD%E8%A8%80/" itemprop="url">
-              
-                <span itemprop="name">面试之Java语言</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-19T14:02:27+08:00"
-              content="2022-02-19" >
-          02-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/02/17/MQ%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url">
-              
-                <span itemprop="name">MQ消息队列</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-02-17T16:44:34+08:00"
-              content="2022-02-17" >
-          02-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/Spring%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/03/08/%E9%9D%A2%E8%AF%95/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%85%B6%E4%BB%96/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="extend next" rel="next" href="/archives/2022/page/2/">&gt;</a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -650,6 +433,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -671,8 +468,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -759,6 +565,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringCloud%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">SpringCloud核心组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">微服务优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Springcloud-%E7%94%9F%E6%80%81%E4%BC%98%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">Springcloud 生态优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">配置中心原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -900,6 +722,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -917,6 +743,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://pavaneyu.github.io/2022/03/08/%E9%9D%A2%E8%AF%95/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E5%B8%83%E5%BC%8F/';
+          this.page.identifier = '2022/03/08/面试/微服务分布式/';
+          this.page.title = '';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

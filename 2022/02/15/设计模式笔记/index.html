@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/02/15/b3eH6l7YujNItxr.png">
 <meta property="og:image" content="https://s2.loli.net/2022/02/15/T2ucSBQZKaloUhk.png">
 <meta property="article:published_time" content="2022-02-15T02:12:54.583Z">
-<meta property="article:modified_time" content="2022-02-17T08:30:31.500Z">
+<meta property="article:modified_time" content="2022-03-14T10:21:40.832Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/02/15/b3eH6l7YujNItxr.png">
@@ -383,10 +383,12 @@
 <p>6.最少知道原则:只与你的朋友通信</p>
 <p>7.合成复用原则 如果B要使用A的方法.尽量使用关联聚合组合(要么B使用A当属性,要么B里面new一个A)   而不是B继承A</p>
 <h1 id="classification"><a href="#classification" class="headerlink" title="classification"></a>classification</h1><p>1.build </p>
-<h1 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h1><p>0.private construct </p>
-<p>1.double check,check null in synchronized code block   , Thread safety,  lazy</p>
-<p>2.static inner class</p>
-<p>3.enum class </p>
+<h1 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h1><p>1.私有构造器</p>
+<p>2.私有静态volatile 属性</p>
+<p>3.外部调用一个public static 方法返回这个属性</p>
+<p>4.在方法里双重检查  如果为空就返回一个新创建的,否则就直接返回属性   保证懒加载  和线程安全</p>
+<p>5.另外也可以使用私有静态内部类  里面有个私有静态final 属性 new出来的 </p>
+<p>6.其实枚举类也是一种单例模式</p>
 <p><img src="https://s2.loli.net/2022/02/15/T2ucSBQZKaloUhk.png" alt="image-20220215184127132"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">package 设计模式.单例;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 2022-02-15 16:25</span><br><span class="line"> */</span><br><span class="line">public class Singleton &#123;</span><br><span class="line">    private Singleton() &#123;//构造器私有,防止外面new,对外只提供get方法</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//    public  static Singleton singleton;</span><br><span class="line">//   /*</span><br><span class="line">//   private final static Singleton SINGLETON = new Singleton();</span><br><span class="line">//    //在get方法之外之外new静态变量在类加载时候完成,可能这个时候不需要</span><br><span class="line">//    public static Singleton getSINGLETON() &#123;</span><br><span class="line">//        return SINGLETON;</span><br><span class="line">//    &#125;*/</span><br><span class="line">//</span><br><span class="line">//    /**</span><br><span class="line">//     *   efficiency low</span><br><span class="line">//     * @return</span><br><span class="line">//     */</span><br><span class="line">//    public static synchronized Singleton getInstance() &#123;</span><br><span class="line">//        if (singleton == null) &#123;</span><br><span class="line">//           singleton = new Singleton();</span><br><span class="line">//        &#125;</span><br><span class="line">//</span><br><span class="line">//        return singleton;</span><br><span class="line">//    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * perfect ,  double check,check null in synchronized code block   , Thread safety,  lazy</span><br><span class="line">     */</span><br><span class="line">    private static volatile Singleton singleton;</span><br><span class="line">    //什么时候使用volatile呢？当一个线程需要立刻读取到另外一个线程修改的变量值的时候</span><br><span class="line"></span><br><span class="line">    public static Singleton getInstance() &#123;</span><br><span class="line">        if (singleton == null) &#123;</span><br><span class="line">            synchronized (Singleton.class) &#123;</span><br><span class="line">                if (singleton == null) &#123;</span><br><span class="line">                    singleton = new Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return singleton;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * static inner class ,perfect</span><br><span class="line">     */</span><br><span class="line">    private static class SingletonInstance &#123;</span><br><span class="line">        private static final Singleton SINGLETON = new S ingleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static synchronized Singleton gettInstance() &#123;</span><br><span class="line">        return SingletonInstance.SINGLETON;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -394,7 +396,7 @@
 <p>工厂方法  获取新品牌的car不需要修改工厂的代码  增加一个新的工厂类就可以</p>
 <p>抽象工厂</p>
 <p>1.创建对象的时候需要很多参数,参数在工厂里设定好,调用者只是得到设定好的对象(bb:可以用默认参数啊)</p>
-<h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><p>如何复制A的内容到B?  </p>
+<h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><p>如何复制A内容到B?  </p>
 <p>1.直接 B&#x3D;A.clone()方法赋值   但是这是浅克隆 ,B是和A不一样了,但是B属性和A的属性是同一个对象,地址相同,更改a的属性,b的也会变</p>
 <p>2.重写Object的clone(),在里面里面把属性也clone()一下赋值,才是深拷贝</p>
 <h1 id="建造者模式-构建与表示相分离"><a href="#建造者模式-构建与表示相分离" class="headerlink" title="建造者模式:构建与表示相分离"></a>建造者模式:构建与表示相分离</h1><p>通过build(xx)链式编程 可以自定义参数  和参数的顺序 (自定义参数可以用kotlin里面的指定参数啊)</p>
@@ -531,7 +533,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
