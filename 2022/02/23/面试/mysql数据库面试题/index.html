@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Pavane" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="[toc] 事务ACID靠什么保证 原子性:undolog日志保证,事务回滚时撤销已经执行的Sql 一致性 由其他特性保证 隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞 持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql  事务七种传播行为 需要 required     默认传播机制    有就加入 没有新建 需要新的  required_new">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库面试题">
+<meta property="og:url" content="https://pavaneyu.github.io/2022/02/23/%E9%9D%A2%E8%AF%95/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E9%A2%98/">
+<meta property="og:site_name" content="Pavane">
+<meta property="og:description" content="[toc] 事务ACID靠什么保证 原子性:undolog日志保证,事务回滚时撤销已经执行的Sql 一致性 由其他特性保证 隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞 持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql  事务七种传播行为 需要 required     默认传播机制    有就加入 没有新建 需要新的  required_new">
+<meta property="og:locale">
+<meta property="og:image" content="https://s2.loli.net/2022/03/12/SoxZ73KQYctVapg.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/07/jmSgiQZdqVW6zwE.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/12/k2jTh5DZfYdcQVC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/12/68WOzi9X3kwUDPb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/03/12/4C2rTp7slFR5bhN.png">
+<meta property="article:published_time" content="2022-02-23T05:35:25.354Z">
+<meta property="article:modified_time" content="2022-06-14T13:06:27.574Z">
+<meta property="article:author" content="OuyangYu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/12/SoxZ73KQYctVapg.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://pavaneyu.github.io/2022/02/23/面试/mysql数据库面试题/"/>
+
+
+
+
+
+  <title>数据库面试题 | Pavane</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pavane</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/home/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://pavaneyu.github.io/2022/02/23/%E9%9D%A2%E8%AF%95/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pavane">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库面试题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-23T13:35:25+08:00">
+                2022-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/02/23/%E9%9D%A2%E8%AF%95/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E9%A2%98/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/02/23/面试/mysql数据库面试题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[toc]</p>
+<h1 id="事务ACID靠什么保证"><a href="#事务ACID靠什么保证" class="headerlink" title="事务ACID靠什么保证"></a>事务ACID靠什么保证</h1><ul>
+<li>原子性:undolog日志保证,事务回滚时撤销已经执行的Sql</li>
+<li>一致性 由其他特性保证</li>
+<li>隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞</li>
+<li>持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql</li>
+</ul>
+<h1 id="事务七种传播行为"><a href="#事务七种传播行为" class="headerlink" title="事务七种传播行为"></a>事务七种传播行为</h1><ul>
+<li>需要 required     默认传播机制    有就加入 没有新建</li>
+<li>需要新的  required_new              必须新建,旧的挂起</li>
+<li>支持  support          有就加入 没有算了  </li>
+<li>不支持  notSupport   不应该运行在事务中  ,有就挂起</li>
+<li>强制 mandatory       必须运行在事务中,没有就抛出异常</li>
+<li>从不  never                不应该运行在事务中,有就抛出异常</li>
+<li>嵌套  nested            嵌套运行</li>
+</ul>
+<h1 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h1><ul>
+<li>读取未提交内容  –产生<strong>脏读</strong>  幻读  不可重复读 很少用</li>
+<li>读取已提交内容 – 解决了脏读问题     有幻读   不可重复读 </li>
+<li>可重复读  -MySql的默认隔离级别 ,可能产生<strong>幻读</strong>  InnoDB引擎通过多版本并发控制来解决幻读问题</li>
+<li>串行化–最高级别的隔离,通过强制事务排序,在每个读的数据行加锁,但效率不高</li>
+</ul>
+<h1 id="事务三种隔离问题"><a href="#事务三种隔离问题" class="headerlink" title="事务三种隔离问题"></a>事务三种隔离问题</h1><ul>
+<li>脏读   读取另一个事务未提交的数据</li>
+<li>幻读    两次读取前后数据总量不一致</li>
+<li>不可重复读   两次读取前后,数据内容不一致</li>
+</ul>
+<h1 id="mysql主从同步好处"><a href="#mysql主从同步好处" class="headerlink" title="mysql主从同步好处"></a>mysql主从同步好处</h1><ul>
+<li>解决读写分离</li>
+<li>数据热备份</li>
+<li>降低IO频率</li>
+</ul>
+<h1 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h1><ul>
+<li><p>避免  全表扫描 尽量走索引</p>
+<ul>
+<li>like  避免字段开头模糊查询  </li>
+<li>in 会全表扫描    可以用between  或者exist代替</li>
+<li>or 也会 全表扫描   可以用union代替</li>
+<li>where等号左边如果出现表达式和函数 也会全表扫描</li>
+</ul>
+</li>
+<li><p>查询优化 </p>
+<ul>
+<li>避免select *,尽量指定字段</li>
+<li>多表关联时,小表在前,大表在后    尽量内连接 </li>
+<li>用where替换having </li>
+<li>查询数据量大,采用分页</li>
+</ul>
+</li>
+<li><p>DML优化</p>
+<ul>
+<li>批处理,效率高一些</li>
+<li>适当commit ,减少事务占用的资源’</li>
+</ul>
+</li>
+<li><p>索引优化  (查的更快,占用更少</p>
+<ul>
+<li><p>索引数目不要太多,删除不用的索引</p>
+</li>
+<li><p>使用短索引, 和前缀索引</p>
+</li>
+<li><p>经常 查询   的字段 建立索引</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="InnoDB与Myisam"><a href="#InnoDB与Myisam" class="headerlink" title="InnoDB与Myisam ?"></a>InnoDB与Myisam ?</h1><ul>
+<li>InnoDB          一定有主键,主键一定是聚集索引                 <strong>行锁   支持事务            支持聚集索引     插入效率较高</strong>    删除整个表是一行一行删除 </li>
+<li>Myisam                               <strong>表锁   不支持事务       非聚集索引      查询效率较高</strong>    删除整个表会新建表 <ul>
+<li>三个文件 myd存数据 myi存索引  frm存表结构</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/03/12/SoxZ73KQYctVapg.png" alt="image-20220312131810702"></p>
+<p>+ </p>
+<h1 id="聚集索引和非聚集索引"><a href="#聚集索引和非聚集索引" class="headerlink" title="聚集索引和非聚集索引"></a>聚集索引和非聚集索引</h1><p>都是一种B+树  </p>
+<ul>
+<li><p>聚集索引: 按主键构造一颗 B+ 数，一张表存在一个          叶子节点中存放行数据,数据与索引放一起 ,物理连续            查询快,插入慢  </p>
+</li>
+<li><p>非聚集索引:叶子结点包含一个书签,指向索引对应的行数据           逻辑连续</p>
+</li>
+</ul>
+<h1 id="创建索引原则"><a href="#创建索引原则" class="headerlink" title="创建索引原则"></a>创建索引原则</h1><ul>
+<li><p>总的原则   (查询更快,空间更小)</p>
+</li>
+<li><p>索引唯一性</p>
+</li>
+<li><p>不要过度索引,索引数目尽量少,删除不用的索引</p>
+</li>
+<li><p>使用短索引,尽量前缀创建索引</p>
+</li>
+<li><p>经常查询  的字段建立索引</p>
+</li>
+<li><p>有外键的数据列 一定要索引</p>
+</li>
+<li><p>重复值较多的字段不适合建索引 ,比如 男女</p>
+</li>
+<li><p>经常更改的字段不适合建索引   比如 updatetime</p>
+</li>
+<li><p>image 和bit 类型 不要建索引</p>
+</li>
+</ul>
+<h1 id="有哪几种索引类型"><a href="#有哪几种索引类型" class="headerlink" title="有哪几种索引类型"></a>有哪几种索引类型</h1><ul>
+<li>普通索引</li>
+<li>unique唯一索引   主键索引</li>
+<li>联合索引</li>
+<li>fulltext 全文索引</li>
+<li>索引可以提高查询速度，但是会占用一定的物理空间，而且在表更新后，索引文件也会跟着改变</li>
+</ul>
+<h1 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h1><p>在联合索引情况下,不是有最左前缀原则  where name like 张% and age&#x3D;20</p>
+<p>会因为like导致后面的索引失效, 还是会全表扫描  </p>
+<p>索引下推,仍然会通过索引树判断age     减少了回表次数 和IO操作</p>
+<h1 id="慢查询怎么处理"><a href="#慢查询怎么处理" class="headerlink" title="慢查询怎么处理"></a>慢查询怎么处理</h1><ul>
+<li>可能加载了多余数据    分析<strong>sql语句</strong>优化   </li>
+<li>可能查询条件<strong>没有命中索引</strong>, 分析执行计划  修改或者增加索引</li>
+<li>查询<strong>表自身的数据量</strong>太大,可以考虑横向或纵向分表</li>
+</ul>
+<h1 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h1><p>提供索引最左边的字段,也就是排在最前面的字段</p>
+<p>比如在建立abc三个字段的联合索引时,底层b+树按照从左到右比较大小排序,</p>
+<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><ul>
+<li>水平拆分  按照每一行的数据进行拆分   没有交集  提高sql执行效率</li>
+<li>垂直拆分   按每一列字段进行拆分  至少有一列交集</li>
+</ul>
+<h1 id="mysql锁"><a href="#mysql锁" class="headerlink" title="mysql锁"></a>mysql锁</h1><ul>
+<li>有好几种不同分类</li>
+<li>可以分为  行锁  表锁  间隙锁</li>
+<li>共享锁  也就是读锁  只允许其他事务读,但不能写   排它锁  也就是写锁,其他事物不能读,也不能写</li>
+<li>乐观锁,不是真的去锁,而是通过版本号来实现    悲观锁  行锁 表锁都是悲观锁</li>
+</ul>
+<h1 id="与"><a href="#与" class="headerlink" title="#{}与${}"></a>#{}与${}</h1><ul>
+<li>#{}  会预编译处理 ,相当于prepareStatement.set 赋值,可以防止sql注入</li>
+<li>${}  只是字符串替换</li>
+</ul>
+<h1 id="sql-模糊查询"><a href="#sql-模糊查询" class="headerlink" title="sql 模糊查询"></a>sql 模糊查询</h1><p>concat函数  (‘%’,#{},’%’)</p>
+<h1 id="如何给sql-传参数"><a href="#如何给sql-传参数" class="headerlink" title="如何给sql 传参数"></a>如何给sql 传参数</h1><ol>
+<li>@param 参数列表     2.map传     3.javaBean 传</li>
+</ol>
+<h1 id="动态sql-标签"><a href="#动态sql-标签" class="headerlink" title="动态sql 标签"></a>动态sql 标签</h1><ul>
+<li>choose   when      选择一个</li>
+<li>where  if    查询条件动态</li>
+<li>set  if   更新条件动态</li>
+<li>foreach    遍历集合</li>
+</ul>
+<h1 id="获取自动生成的主键-回填到实体类"><a href="#获取自动生成的主键-回填到实体类" class="headerlink" title="获取自动生成的主键  (回填到实体类)?"></a>获取自动生成的主键  (回填到实体类)?</h1><p>useGeneratedKeys&#x3D;”true” <strong>keyProperty</strong>&#x3D;”ID”  </p>
+<p>java 完成插入后  可以自动获取 .getID</p>
+<h1 id="mybatis-数据库字段-跟pojo中字段不一样怎么映射"><a href="#mybatis-数据库字段-跟pojo中字段不一样怎么映射" class="headerlink" title="mybatis 数据库字段  跟pojo中字段不一样怎么映射"></a>mybatis 数据库字段  跟pojo中字段不一样怎么映射</h1><ul>
+<li><p>sql语句中起别名 ,跟pojo对应 </p>
+</li>
+<li><p>.resultmap 映射</p>
+</li>
+<li><p>如果只是驼峰和下划线的差别    mybatis配置文件中驼峰映射</p>
+</li>
+</ul>
+<h1 id="嵌套查询与嵌套结果"><a href="#嵌套查询与嵌套结果" class="headerlink" title="嵌套查询与嵌套结果"></a>嵌套查询与嵌套结果</h1><p>嵌套查询是在查询 SQL 后再进行一个（子）查询  ,会执行多条Sql </p>
+<p>嵌套结果是一个多表查询的 SQL 语句 ,执行一条复杂sql</p>
+<h1 id="一对一-多对多"><a href="#一对一-多对多" class="headerlink" title="一对一  多对多"></a>一对一  多对多</h1><ol>
+<li>联-association 用于一对一和多对一</li>
+<li>集合-collection 用于一对多的关系</li>
+</ol>
+<h1 id="Mybatis三种Executor执行器"><a href="#Mybatis三种Executor执行器" class="headerlink" title="Mybatis三种Executor执行器:"></a>Mybatis三种Executor执行器:</h1><ul>
+<li><p>简单执行器<strong>SimpleExecutor：</strong>每执行一次update或select，就开启一个Statement对象，用完立刻关闭Statement对象。</p>
+</li>
+<li><p>重用执行器<strong>ReuseExecutor：</strong>执行update或select，以sql作为key查找Statement对象，存在就使用，不存在就创建，用完后，不关闭Statement对象，而是放置于Map内，供下一次使用。简言之，就是重复使用Statement对象。</p>
+</li>
+<li><p>批量执行器<strong>BatchExecutor：</strong>执行update。</p>
+</li>
+<li><p>Mybatis配置文件中，可以指定默认的ExecutorType执行器类型</p>
+</li>
+</ul>
+<h1 id="mybatis-一二级缓存"><a href="#mybatis-一二级缓存" class="headerlink" title="mybatis  一二级缓存"></a>mybatis  一二级缓存</h1><ul>
+<li>都是基于PerpetualCache ,HashMap存储</li>
+<li>一级缓存 作用域为 session   ,也就是session结束会清空.他是默认开启</li>
+<li>二级缓存 作用域为mapper ,可以在多个session之间共享, 他默认不开启</li>
+</ul>
+<h1 id="mp主键生成策略"><a href="#mp主键生成策略" class="headerlink" title="mp主键生成策略"></a>mp主键生成策略</h1><p>自增长<br>UUID 每次生成随机唯一的值  但排序不方便<br>redis生成<br>mp默认的雪花算法</p>
+<h1 id="redis为什么快"><a href="#redis为什么快" class="headerlink" title="redis为什么快"></a>redis为什么快</h1><ul>
+<li>异步非阻塞的IO</li>
+<li>基于内存</li>
+</ul>
+<h1 id="B树和B-Tree-区别"><a href="#B树和B-Tree-区别" class="headerlink" title="B树和B+Tree 区别"></a>B树和B+Tree 区别</h1><ul>
+<li>b树 每个节点 key和数据在一起   b+树 数据在叶子节点上,且叶子节点之间相互引用  <img src="https://s2.loli.net/2022/03/07/jmSgiQZdqVW6zwE.png" alt="image-20220307172001114" style="zoom:50%;"></li>
+</ul>
+<h1 id="Sql调优之多个索引匹配"><a href="#Sql调优之多个索引匹配" class="headerlink" title="Sql调优之多个索引匹配?"></a>Sql调优之多个索引匹配?</h1><p>创建索引的时候</p>
+<p>覆盖索引  减伤回表次数 支持索引下推</p>
+<p>普通索引</p>
+<h1 id="主键-自增，获得数据库最后一条数据"><a href="#主键-自增，获得数据库最后一条数据" class="headerlink" title="[主键]自增，获得数据库最后一条数据"></a>[主键]自增，获得数据库最后一条数据</h1><p>先倒序排序<br>再获得第一条数据</p>
+<h1 id="MySQL常用函数"><a href="#MySQL常用函数" class="headerlink" title="MySQL常用函数"></a>MySQL常用函数</h1><p>聚合函数   count   sum  max  min     avg</p>
+<h1 id="分表怎么实现"><a href="#分表怎么实现" class="headerlink" title="分表怎么实现"></a>分表怎么实现</h1><p>​       </p>
+<h1 id="左连接-右链接-内连接和全外连接"><a href="#左连接-右链接-内连接和全外连接" class="headerlink" title="左连接  右链接   内连接和全外连接"></a>左连接  右链接   内连接和全外连接</h1><ul>
+<li>left join （左连接）：以左边表所有记录为标准         右表中连接字段相等的记录 ,没有显示null<br>　　right join （右连接）：返回包括右表中的所有记录和左表中连接字段相等的记录。<br>  inner join （内连接）：只返回两个表中连接字段相等的行。</li>
+<li>full join （全外连接）：返回左右表中所有的记录和左右表中连接字段相等的记录</li>
+</ul>
+<hr>
+<p><img src="https://s2.loli.net/2022/03/12/k2jTh5DZfYdcQVC.png" alt="image-20220312153155728"></p>
+<p><img src="https://s2.loli.net/2022/03/12/68WOzi9X3kwUDPb.png" alt="image-20220312153340471"></p>
+<h1 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h1><p><img src="https://s2.loli.net/2022/03/12/4C2rTp7slFR5bhN.png" alt="image-20220312132403594"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/22/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0webflux/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/26/%E9%9D%A2%E8%AF%95/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%B9%B6%E5%8F%91%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="prev" title="多线程并发面试题">
+                多线程并发面试题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28398649&auto=0&height=66"></iframe>
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Ouyang-Yu" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/ravel06093773" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1ACID%E9%9D%A0%E4%BB%80%E4%B9%88%E4%BF%9D%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">事务ACID靠什么保证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B8%83%E7%A7%8D%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA"><span class="nav-number">2.</span> <span class="nav-text">事务七种传播行为</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B8%89%E7%A7%8D%E9%9A%94%E7%A6%BB%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">事务三种隔离问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%A5%BD%E5%A4%84"><span class="nav-number">5.</span> <span class="nav-text">mysql主从同步好处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">SQL优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#InnoDB%E4%B8%8EMyisam"><span class="nav-number">7.</span> <span class="nav-text">InnoDB与Myisam ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">8.</span> <span class="nav-text">聚集索引和非聚集索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%8E%9F%E5%88%99"><span class="nav-number">9.</span> <span class="nav-text">创建索引原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="nav-number">10.</span> <span class="nav-text">有哪几种索引类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8"><span class="nav-number">11.</span> <span class="nav-text">索引下推</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">慢查询怎么处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99"><span class="nav-number">13.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="nav-number">14.</span> <span class="nav-text">分库分表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E9%94%81"><span class="nav-number">15.</span> <span class="nav-text">mysql锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8E"><span class="nav-number">16.</span> <span class="nav-text">#{}与${}</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">17.</span> <span class="nav-text">sql 模糊查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99sql-%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="nav-number">18.</span> <span class="nav-text">如何给sql 传参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81sql-%E6%A0%87%E7%AD%BE"><span class="nav-number">19.</span> <span class="nav-text">动态sql 标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E4%B8%BB%E9%94%AE-%E5%9B%9E%E5%A1%AB%E5%88%B0%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-number">20.</span> <span class="nav-text">获取自动生成的主键  (回填到实体类)?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5-%E8%B7%9Fpojo%E4%B8%AD%E5%AD%97%E6%AE%B5%E4%B8%8D%E4%B8%80%E6%A0%B7%E6%80%8E%E4%B9%88%E6%98%A0%E5%B0%84"><span class="nav-number">21.</span> <span class="nav-text">mybatis 数据库字段  跟pojo中字段不一样怎么映射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%9C"><span class="nav-number">22.</span> <span class="nav-text">嵌套查询与嵌套结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80-%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">23.</span> <span class="nav-text">一对一  多对多</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis%E4%B8%89%E7%A7%8DExecutor%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="nav-number">24.</span> <span class="nav-text">Mybatis三种Executor执行器:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis-%E4%B8%80%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">25.</span> <span class="nav-text">mybatis  一二级缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mp%E4%B8%BB%E9%94%AE%E7%94%9F%E6%88%90%E7%AD%96%E7%95%A5"><span class="nav-number">26.</span> <span class="nav-text">mp主键生成策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB"><span class="nav-number">27.</span> <span class="nav-text">redis为什么快</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B%E6%A0%91%E5%92%8CB-Tree-%E5%8C%BA%E5%88%AB"><span class="nav-number">28.</span> <span class="nav-text">B树和B+Tree 区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sql%E8%B0%83%E4%BC%98%E4%B9%8B%E5%A4%9A%E4%B8%AA%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D"><span class="nav-number">29.</span> <span class="nav-text">Sql调优之多个索引匹配?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE-%E8%87%AA%E5%A2%9E%EF%BC%8C%E8%8E%B7%E5%BE%97%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%80%E5%90%8E%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE"><span class="nav-number">30.</span> <span class="nav-text">[主键]自增，获得数据库最后一条数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">31.</span> <span class="nav-text">MySQL常用函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E8%A1%A8%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">32.</span> <span class="nav-text">分表怎么实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A6%E8%BF%9E%E6%8E%A5-%E5%8F%B3%E9%93%BE%E6%8E%A5-%E5%86%85%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">33.</span> <span class="nav-text">左连接  右链接   内连接和全外连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-%E6%A0%91"><span class="nav-number">34.</span> <span class="nav-text">B+树</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2021 &mdash; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OuyangYu</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://pavaneyu.github.io/2022/02/23/%E9%9D%A2%E8%AF%95/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E9%A2%98/';
+          this.page.identifier = '2022/02/23/面试/mysql数据库面试题/';
+          this.page.title = '数据库面试题';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
