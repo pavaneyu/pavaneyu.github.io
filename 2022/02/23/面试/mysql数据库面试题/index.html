@@ -81,23 +81,19 @@
 
 
 
-<meta name="description" content="[toc] 事务ACID靠什么保证 原子性:undolog日志保证,事务回滚时撤销已经执行的Sql 一致性 由其他特性保证 隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞 持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql  事务七种传播行为 需要 required     默认传播机制    有就加入 没有新建 需要新的  required_new">
+<meta name="description" content="[toc] 事务事务ACID靠什么保证    (直接回答ACID +undolog  redolog  还有MVCC ) A原子性:undolog日志保证,事务回滚时撤销已经执行的Sql C一致性 由其他特性保证 I’隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞 D持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql  事务七种传播行为 需要 requ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据库面试题">
 <meta property="og:url" content="https://pavaneyu.github.io/2022/02/23/%E9%9D%A2%E8%AF%95/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E8%AF%95%E9%A2%98/">
 <meta property="og:site_name" content="Pavane">
-<meta property="og:description" content="[toc] 事务ACID靠什么保证 原子性:undolog日志保证,事务回滚时撤销已经执行的Sql 一致性 由其他特性保证 隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞 持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql  事务七种传播行为 需要 required     默认传播机制    有就加入 没有新建 需要新的  required_new">
+<meta property="og:description" content="[toc] 事务事务ACID靠什么保证    (直接回答ACID +undolog  redolog  还有MVCC ) A原子性:undolog日志保证,事务回滚时撤销已经执行的Sql C一致性 由其他特性保证 I’隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞 D持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql  事务七种传播行为 需要 requ">
 <meta property="og:locale">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/SoxZ73KQYctVapg.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/07/jmSgiQZdqVW6zwE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/k2jTh5DZfYdcQVC.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/68WOzi9X3kwUDPb.png">
-<meta property="og:image" content="https://s2.loli.net/2022/03/12/4C2rTp7slFR5bhN.png">
+<meta property="og:image" content="https://pavaneyu.github.io/.io//image-20220626170132490.png">
 <meta property="article:published_time" content="2022-02-23T05:35:25.354Z">
-<meta property="article:modified_time" content="2022-06-14T13:06:27.574Z">
+<meta property="article:modified_time" content="2022-06-26T12:18:49.019Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2022/03/12/SoxZ73KQYctVapg.png">
+<meta name="twitter:image" content="https://pavaneyu.github.io/.io//image-20220626170132490.png">
 
 
 
@@ -361,13 +357,13 @@
 
       
         <p>[toc]</p>
-<h1 id="事务ACID靠什么保证"><a href="#事务ACID靠什么保证" class="headerlink" title="事务ACID靠什么保证"></a>事务ACID靠什么保证</h1><ul>
-<li>原子性:undolog日志保证,事务回滚时撤销已经执行的Sql</li>
-<li>一致性 由其他特性保证</li>
-<li>隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞</li>
-<li>持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql</li>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="事务ACID靠什么保证-直接回答ACID-undolog-redolog-还有MVCC"><a href="#事务ACID靠什么保证-直接回答ACID-undolog-redolog-还有MVCC" class="headerlink" title="事务ACID靠什么保证    (直接回答ACID +undolog  redolog  还有MVCC )"></a>事务ACID靠什么保证    (直接回答ACID +undolog  redolog  还有MVCC )</h2><ul>
+<li>A原子性:undolog日志保证,事务回滚时撤销已经执行的Sql</li>
+<li>C一致性 由其他特性保证</li>
+<li>I’隔离性 由MVCC保证,也就是多版本并发控制,读写时不阻塞</li>
+<li>D持久性  redolog日志   如果数据没有保存成功,还可以中日志中再次执行sql</li>
 </ul>
-<h1 id="事务七种传播行为"><a href="#事务七种传播行为" class="headerlink" title="事务七种传播行为"></a>事务七种传播行为</h1><ul>
+<h2 id="事务七种传播行为"><a href="#事务七种传播行为" class="headerlink" title="事务七种传播行为"></a>事务七种传播行为</h2><ul>
 <li>需要 required     默认传播机制    有就加入 没有新建</li>
 <li>需要新的  required_new              必须新建,旧的挂起</li>
 <li>支持  support          有就加入 没有算了  </li>
@@ -376,35 +372,52 @@
 <li>从不  never                不应该运行在事务中,有就抛出异常</li>
 <li>嵌套  nested            嵌套运行</li>
 </ul>
-<h1 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h1><ul>
+<h2 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h2><ul>
 <li>读取未提交内容  –产生<strong>脏读</strong>  幻读  不可重复读 很少用</li>
-<li>读取已提交内容 – 解决了脏读问题     有幻读   不可重复读 </li>
-<li>可重复读  -MySql的默认隔离级别 ,可能产生<strong>幻读</strong>  InnoDB引擎通过多版本并发控制来解决幻读问题</li>
-<li>串行化–最高级别的隔离,通过强制事务排序,在每个读的数据行加锁,但效率不高</li>
+<li>读取已提交内容 –         不可重复读  </li>
+<li>可重复读  -默认隔离级别 ,可能产生<strong>幻读</strong>  InnoDB引擎通过多版本并发控制来解决幻读问题</li>
+<li>串行化–最高级别的   读写  都加锁</li>
 </ul>
-<h1 id="事务三种隔离问题"><a href="#事务三种隔离问题" class="headerlink" title="事务三种隔离问题"></a>事务三种隔离问题</h1><ul>
+<h2 id="事务三种隔离问题"><a href="#事务三种隔离问题" class="headerlink" title="事务三种隔离问题"></a>事务三种隔离问题</h2><ul>
 <li>脏读   读取另一个事务未提交的数据</li>
-<li>幻读    两次读取前后数据总量不一致</li>
+<li>幻读    两次读取前后 结果集 不一致   可能变大 可能变小  </li>
 <li>不可重复读   两次读取前后,数据内容不一致</li>
 </ul>
-<h1 id="mysql主从同步好处"><a href="#mysql主从同步好处" class="headerlink" title="mysql主从同步好处"></a>mysql主从同步好处</h1><ul>
-<li>解决读写分离</li>
+<h1 id="mysql主从同步相关"><a href="#mysql主从同步相关" class="headerlink" title="mysql主从同步相关"></a>mysql主从同步相关</h1><h2 id="主从复制原理"><a href="#主从复制原理" class="headerlink" title="主从复制原理"></a>主从复制原理</h2><h2 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h2><ul>
+<li>读写分离</li>
 <li>数据热备份</li>
 <li>降低IO频率</li>
 </ul>
-<h1 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h1><ul>
-<li><p>避免  全表扫描 尽量走索引</p>
+<h2 id="主从同步延迟-解决"><a href="#主从同步延迟-解决" class="headerlink" title="主从同步延迟?解决?"></a>主从同步延迟?解决?</h2><ul>
+<li>业务代码里    写之后的读  指定主 数据库 来做    避免主从来没来得及同步 </li>
+<li>二次读取</li>
+<li>关键业务的读写 全 交给主服务器</li>
+</ul>
+<h1 id="sql调优"><a href="#sql调优" class="headerlink" title="sql调优"></a>sql调优</h1><h2 id="慢查询怎么处理"><a href="#慢查询怎么处理" class="headerlink" title="慢查询怎么处理"></a>慢查询怎么处理</h2><ul>
+<li>​    分析<strong>sql语句</strong>优化   </li>
+<li>可能查询条件<strong>没有命中索引</strong>, 分析执行计划  修改或者增加索引</li>
+<li>数据库自身优化        <strong>表自身的数据量</strong>太大,可以考虑横向或纵向分表</li>
+</ul>
+<h2 id="慢-SQL优化"><a href="#慢-SQL优化" class="headerlink" title="(慢)SQL优化"></a>(慢)SQL优化</h2><ul>
+<li><p>避免索引失效的场景     全表扫描        <strong>where</strong>  (xxx)  <strong>like</strong> (xxx)  <strong>or</strong> (x) <strong>in</strong> (xxx)</p>
 <ul>
+<li>where等号左边如果出现表达式和函数 也会全表扫描   </li>
 <li>like  避免字段开头模糊查询  </li>
+<li>低版本的or 也会 全表扫描   可以用union代替</li>
 <li>in 会全表扫描    可以用between  或者exist代替</li>
-<li>or 也会 全表扫描   可以用union代替</li>
-<li>where等号左边如果出现表达式和函数 也会全表扫描</li>
 </ul>
 </li>
-<li><p>查询优化 </p>
+<li><p>索引优化  (查的更快,占用更少</p>
+<ul>
+<li>经常 查询   的字段 建立索引</li>
+<li>过长字段  使用前缀索引</li>
+<li>索引数目不要太多,</li>
+</ul>
+</li>
+<li><p>查询优化     <strong>select</strong>  *  from x  <strong>join</strong> x   <strong>having</strong> xxx   <strong>limit</strong> 10</p>
 <ul>
 <li>避免select *,尽量指定字段</li>
-<li>多表关联时,小表在前,大表在后    尽量内连接 </li>
+<li>多表关联时,小表在前,大表在后   避免join太多表</li>
 <li>用where替换having </li>
 <li>查询数据量大,采用分页</li>
 </ul>
@@ -414,98 +427,100 @@
 <li>批处理,效率高一些</li>
 <li>适当commit ,减少事务占用的资源’</li>
 </ul>
+<h2 id="查询sql执行顺序-1-构建虚拟表-2-条件过滤-3-调整顺序-4-返回"><a href="#查询sql执行顺序-1-构建虚拟表-2-条件过滤-3-调整顺序-4-返回" class="headerlink" title="查询sql执行顺序     (1.构建虚拟表   2.条件过滤  3.调整顺序  4.返回)"></a>查询sql执行顺序     (1.构建虚拟表   2.条件过滤  3.调整顺序  4.返回)</h2></li>
+<li><p>from  join   on</p>
 </li>
-<li><p>索引优化  (查的更快,占用更少</p>
+<li><p>where</p>
+</li>
+<li><p>order by    group by</p>
+</li>
+<li><p>select distinct  加上最后的 limit  返回</p>
+</li>
+</ul>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="索引原理"><a href="#索引原理" class="headerlink" title="索引原理"></a>索引原理</h2><ul>
+<li>如果没有索引,查询就要遍历整张表  </li>
+<li>添加索引  mysql 生成索引文件   查找时候就去索引文件找,再映射到对应的数据    类似于 先查一本书的目录</li>
+<li>​                                                        首先给索引列  排序    然后生成倒排表      拼上数据地址链</li>
+</ul>
+<h2 id="聚集索引和非聚集索引"><a href="#聚集索引和非聚集索引" class="headerlink" title="聚集索引和非聚集索引"></a>聚集索引和非聚集索引</h2><p>都是一种B+树  </p>
 <ul>
-<li><p>索引数目不要太多,删除不用的索引</p>
+<li><p>聚集索引:    行数据   逻辑顺序    磁盘物理顺序  相同    ,一张表只有一个</p>
 </li>
-<li><p>使用短索引, 和前缀索引</p>
-</li>
-<li><p>经常 查询   的字段 建立索引</p>
+<li><p>非聚集索引:                逻辑顺序    磁盘物理顺序  不同   ,一张表可以有多个</p>
 </li>
 </ul>
+<h2 id="创建索引原则"><a href="#创建索引原则" class="headerlink" title="创建索引原则"></a>创建索引原则</h2><ul>
+<li><p>频繁查询的字段建立索引</p>
 </li>
-</ul>
-<h1 id="InnoDB与Myisam"><a href="#InnoDB与Myisam" class="headerlink" title="InnoDB与Myisam ?"></a>InnoDB与Myisam ?</h1><ul>
-<li>InnoDB          一定有主键,主键一定是聚集索引                 <strong>行锁   支持事务            支持聚集索引     插入效率较高</strong>    删除整个表是一行一行删除 </li>
-<li>Myisam                               <strong>表锁   不支持事务       非聚集索引      查询效率较高</strong>    删除整个表会新建表 <ul>
-<li>三个文件 myd存数据 myi存索引  frm存表结构</li>
-</ul>
+<li><p>过长的字段，使用前缀索引</p>
 </li>
-</ul>
-<p><img src="https://s2.loli.net/2022/03/12/SoxZ73KQYctVapg.png" alt="image-20220312131810702"></p>
-<p>+ </p>
-<h1 id="聚集索引和非聚集索引"><a href="#聚集索引和非聚集索引" class="headerlink" title="聚集索引和非聚集索引"></a>聚集索引和非聚集索引</h1><p>都是一种B+树  </p>
-<ul>
-<li><p>聚集索引: 按主键构造一颗 B+ 数，一张表存在一个          叶子节点中存放行数据,数据与索引放一起 ,物理连续            查询快,插入慢  </p>
+<li><p>索引个数适量,因为索引也要占空间  更新的时候也要维护</p>
 </li>
-<li><p>非聚集索引:叶子结点包含一个书签,指向索引对应的行数据           逻辑连续</p>
-</li>
-</ul>
-<h1 id="创建索引原则"><a href="#创建索引原则" class="headerlink" title="创建索引原则"></a>创建索引原则</h1><ul>
-<li><p>总的原则   (查询更快,空间更小)</p>
-</li>
-<li><p>索引唯一性</p>
-</li>
-<li><p>不要过度索引,索引数目尽量少,删除不用的索引</p>
-</li>
-<li><p>使用短索引,尽量前缀创建索引</p>
-</li>
-<li><p>经常查询  的字段建立索引</p>
-</li>
-<li><p>有外键的数据列 一定要索引</p>
-</li>
-<li><p>重复值较多的字段不适合建索引 ,比如 男女</p>
+<li></li>
+<li></li>
+<li><p>重复值较多的字段不适合建索引 ,比如 性别男女</p>
 </li>
 <li><p>经常更改的字段不适合建索引   比如 updatetime</p>
+<h3 id><a href="#" class="headerlink" title></a></h3><h2 id="有哪几种索引类型"><a href="#有哪几种索引类型" class="headerlink" title="有哪几种索引类型"></a>有哪几种索引类型</h2></li>
+<li><p>主键索引  id字段</p>
 </li>
-<li><p>image 和bit 类型 不要建索引</p>
+<li><p>唯一索引     用户名</p>
+</li>
+<li><p>普通索引</p>
+</li>
+<li><p>联合索引</p>
 </li>
 </ul>
-<h1 id="有哪几种索引类型"><a href="#有哪几种索引类型" class="headerlink" title="有哪几种索引类型"></a>有哪几种索引类型</h1><ul>
-<li>普通索引</li>
-<li>unique唯一索引   主键索引</li>
-<li>联合索引</li>
-<li>fulltext 全文索引</li>
-<li>索引可以提高查询速度，但是会占用一定的物理空间，而且在表更新后，索引文件也会跟着改变</li>
+<h2 id="索引下推-mysql-server-将判断条件-下推给-存储引擎"><a href="#索引下推-mysql-server-将判断条件-下推给-存储引擎" class="headerlink" title="索引下推  mysql server 将判断条件 下推给 存储引擎"></a>索引下推  mysql server 将判断条件 下推给 存储引擎</h2><ul>
+<li>在联合索引情况下,  有这样一个条件  where name like 张% and age&#x3D;20</li>
+<li>根据最左匹配原则    引擎层先找到匹配名字的数据  再由 server层过滤age&#x3D;20    </li>
+<li>回表了两次 ,浪费了联合索引的后一个字段</li>
 </ul>
-<h1 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h1><p>在联合索引情况下,不是有最左前缀原则  where name like 张% and age&#x3D;20</p>
-<p>会因为like导致后面的索引失效, 还是会全表扫描  </p>
-<p>索引下推,仍然会通过索引树判断age     减少了回表次数 和IO操作</p>
-<h1 id="慢查询怎么处理"><a href="#慢查询怎么处理" class="headerlink" title="慢查询怎么处理"></a>慢查询怎么处理</h1><ul>
-<li>可能加载了多余数据    分析<strong>sql语句</strong>优化   </li>
-<li>可能查询条件<strong>没有命中索引</strong>, 分析执行计划  修改或者增加索引</li>
-<li>查询<strong>表自身的数据量</strong>太大,可以考虑横向或纵向分表</li>
-</ul>
-<h1 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h1><p>提供索引最左边的字段,也就是排在最前面的字段</p>
-<p>比如在建立abc三个字段的联合索引时,底层b+树按照从左到右比较大小排序,</p>
-<h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><ul>
+<h2 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h2><p>提供索引最左边的字段,也就是排在最前面的字段</p>
+<p>比如在建立abc三个字段的联合索引时,底层b+树按照从左到右比较大小排序</p>
+<h2 id="回表-覆盖索引了解吗"><a href="#回表-覆盖索引了解吗" class="headerlink" title="回表   覆盖索引了解吗"></a>回表   覆盖索引了解吗</h2><p>通过非主键索引查询    会回表                比如select * from user where name &#x3D; ‘张三</p>
+<p>先通过辅助索引  找主键</p>
+<p>然后在主键索引  找数据</p>
+<p>select name  from user where name &#x3D; ‘张三</p>
+<p>这种就是覆盖索引</p>
+<h1 id="分库分表相关"><a href="#分库分表相关" class="headerlink" title="分库分表相关"></a>分库分表相关</h1><h2 id="怎么分"><a href="#怎么分" class="headerlink" title="怎么分"></a>怎么分</h2><ul>
 <li>水平拆分  按照每一行的数据进行拆分   没有交集  提高sql执行效率</li>
 <li>垂直拆分   按每一列字段进行拆分  至少有一列交集</li>
 </ul>
-<h1 id="mysql锁"><a href="#mysql锁" class="headerlink" title="mysql锁"></a>mysql锁</h1><ul>
-<li>有好几种不同分类</li>
-<li>可以分为  行锁  表锁  间隙锁</li>
-<li>共享锁  也就是读锁  只允许其他事务读,但不能写   排它锁  也就是写锁,其他事物不能读,也不能写</li>
-<li>乐观锁,不是真的去锁,而是通过版本号来实现    悲观锁  行锁 表锁都是悲观锁</li>
+<h2 id="水平分表-的路由方式"><a href="#水平分表-的路由方式" class="headerlink" title="水平分表 的路由方式"></a>水平分表 的路由方式</h2><ul>
+<li>范围路由</li>
+<li>哈希路由</li>
+<li>配置路由</li>
 </ul>
-<h1 id="与"><a href="#与" class="headerlink" title="#{}与${}"></a>#{}与${}</h1><ul>
+<h2 id="分库分表中间件"><a href="#分库分表中间件" class="headerlink" title="分库分表中间件"></a>分库分表中间件</h2><p>Mycat 或者  harding-jdbc</p>
+<h2 id="分库分表会带来什么问题"><a href="#分库分表会带来什么问题" class="headerlink" title="分库分表会带来什么问题"></a>分库分表会带来什么问题</h2><ul>
+<li>分库       必须用分布式事务      夸库连表查询</li>
+<li>分表     ID问题   UUID或者分布式ID(雪花算法)</li>
+</ul>
+<h1 id="mybatis相关"><a href="#mybatis相关" class="headerlink" title="mybatis相关"></a>mybatis相关</h1><h2 id="mybatis-优缺点"><a href="#mybatis-优缺点" class="headerlink" title="mybatis 优缺点"></a>mybatis 优缺点</h2><ul>
+<li>sql 写在xml     与程序代码 解耦      支持动态sql</li>
+<li>基于jdbc 所以 jdbc支持的数据库  mybatis都支持   但是 相比于 直接用 jdbc   减少很多冗余代码  </li>
+<li>很容易与Spring集成</li>
+<li></li>
+<li>手动写sql  编写量大   而且具体的sql 依赖于 数据库 ,所以写好了之后不能随便更换</li>
+</ul>
+<h2 id="与"><a href="#与" class="headerlink" title="#{}与${}"></a>#{}与${}</h2><ul>
 <li>#{}  会预编译处理 ,相当于prepareStatement.set 赋值,可以防止sql注入</li>
 <li>${}  只是字符串替换</li>
 </ul>
-<h1 id="sql-模糊查询"><a href="#sql-模糊查询" class="headerlink" title="sql 模糊查询"></a>sql 模糊查询</h1><p>concat函数  (‘%’,#{},’%’)</p>
-<h1 id="如何给sql-传参数"><a href="#如何给sql-传参数" class="headerlink" title="如何给sql 传参数"></a>如何给sql 传参数</h1><ol>
+<h2 id="sql-模糊查询"><a href="#sql-模糊查询" class="headerlink" title="sql 模糊查询"></a>sql 模糊查询</h2><p>concat函数  (‘%’,#{},’%’)</p>
+<h2 id="如何给sql-传参数"><a href="#如何给sql-传参数" class="headerlink" title="如何给sql 传参数"></a>如何给sql 传参数</h2><ol>
 <li>@param 参数列表     2.map传     3.javaBean 传</li>
 </ol>
-<h1 id="动态sql-标签"><a href="#动态sql-标签" class="headerlink" title="动态sql 标签"></a>动态sql 标签</h1><ul>
+<h2 id="动态sql-标签"><a href="#动态sql-标签" class="headerlink" title="动态sql 标签"></a>动态sql 标签</h2><ul>
 <li>choose   when      选择一个</li>
 <li>where  if    查询条件动态</li>
 <li>set  if   更新条件动态</li>
 <li>foreach    遍历集合</li>
 </ul>
-<h1 id="获取自动生成的主键-回填到实体类"><a href="#获取自动生成的主键-回填到实体类" class="headerlink" title="获取自动生成的主键  (回填到实体类)?"></a>获取自动生成的主键  (回填到实体类)?</h1><p>useGeneratedKeys&#x3D;”true” <strong>keyProperty</strong>&#x3D;”ID”  </p>
+<h2 id="获取自动生成的主键-回填到实体类"><a href="#获取自动生成的主键-回填到实体类" class="headerlink" title="获取自动生成的主键  (回填到实体类)?"></a>获取自动生成的主键  (回填到实体类)?</h2><p>useGeneratedKeys&#x3D;”true” <strong>keyProperty</strong>&#x3D;”ID”  </p>
 <p>java 完成插入后  可以自动获取 .getID</p>
-<h1 id="mybatis-数据库字段-跟pojo中字段不一样怎么映射"><a href="#mybatis-数据库字段-跟pojo中字段不一样怎么映射" class="headerlink" title="mybatis 数据库字段  跟pojo中字段不一样怎么映射"></a>mybatis 数据库字段  跟pojo中字段不一样怎么映射</h1><ul>
+<h2 id="mybatis-数据库字段-跟pojo中字段不一样怎么映射"><a href="#mybatis-数据库字段-跟pojo中字段不一样怎么映射" class="headerlink" title="mybatis 数据库字段  跟pojo中字段不一样怎么映射"></a>mybatis 数据库字段  跟pojo中字段不一样怎么映射</h2><ul>
 <li><p>sql语句中起别名 ,跟pojo对应 </p>
 </li>
 <li><p>.resultmap 映射</p>
@@ -513,13 +528,13 @@
 <li><p>如果只是驼峰和下划线的差别    mybatis配置文件中驼峰映射</p>
 </li>
 </ul>
-<h1 id="嵌套查询与嵌套结果"><a href="#嵌套查询与嵌套结果" class="headerlink" title="嵌套查询与嵌套结果"></a>嵌套查询与嵌套结果</h1><p>嵌套查询是在查询 SQL 后再进行一个（子）查询  ,会执行多条Sql </p>
+<h2 id="嵌套查询与嵌套结果"><a href="#嵌套查询与嵌套结果" class="headerlink" title="嵌套查询与嵌套结果"></a>嵌套查询与嵌套结果</h2><p>嵌套查询是在查询 SQL 后再进行一个（子）查询  ,会执行多条Sql </p>
 <p>嵌套结果是一个多表查询的 SQL 语句 ,执行一条复杂sql</p>
-<h1 id="一对一-多对多"><a href="#一对一-多对多" class="headerlink" title="一对一  多对多"></a>一对一  多对多</h1><ol>
+<h2 id="一对一-多对多"><a href="#一对一-多对多" class="headerlink" title="一对一  多对多"></a>一对一  多对多</h2><ol>
 <li>联-association 用于一对一和多对一</li>
 <li>集合-collection 用于一对多的关系</li>
 </ol>
-<h1 id="Mybatis三种Executor执行器"><a href="#Mybatis三种Executor执行器" class="headerlink" title="Mybatis三种Executor执行器:"></a>Mybatis三种Executor执行器:</h1><ul>
+<h2 id="Mybatis三种Executor执行器"><a href="#Mybatis三种Executor执行器" class="headerlink" title="Mybatis三种Executor执行器:"></a>Mybatis三种Executor执行器:</h2><ul>
 <li><p>简单执行器<strong>SimpleExecutor：</strong>每执行一次update或select，就开启一个Statement对象，用完立刻关闭Statement对象。</p>
 </li>
 <li><p>重用执行器<strong>ReuseExecutor：</strong>执行update或select，以sql作为key查找Statement对象，存在就使用，不存在就创建，用完后，不关闭Statement对象，而是放置于Map内，供下一次使用。简言之，就是重复使用Statement对象。</p>
@@ -529,33 +544,60 @@
 <li><p>Mybatis配置文件中，可以指定默认的ExecutorType执行器类型</p>
 </li>
 </ul>
-<h1 id="mybatis-一二级缓存"><a href="#mybatis-一二级缓存" class="headerlink" title="mybatis  一二级缓存"></a>mybatis  一二级缓存</h1><ul>
+<h2 id="mybatis-一二级缓存"><a href="#mybatis-一二级缓存" class="headerlink" title="mybatis  一二级缓存"></a>mybatis  一二级缓存</h2><ul>
 <li>都是基于PerpetualCache ,HashMap存储</li>
 <li>一级缓存 作用域为 session   ,也就是session结束会清空.他是默认开启</li>
 <li>二级缓存 作用域为mapper ,可以在多个session之间共享, 他默认不开启</li>
 </ul>
-<h1 id="mp主键生成策略"><a href="#mp主键生成策略" class="headerlink" title="mp主键生成策略"></a>mp主键生成策略</h1><p>自增长<br>UUID 每次生成随机唯一的值  但排序不方便<br>redis生成<br>mp默认的雪花算法</p>
-<h1 id="redis为什么快"><a href="#redis为什么快" class="headerlink" title="redis为什么快"></a>redis为什么快</h1><ul>
-<li>异步非阻塞的IO</li>
-<li>基于内存</li>
+<h1 id="引擎与数据结构"><a href="#引擎与数据结构" class="headerlink" title="引擎与数据结构"></a>引擎与数据结构</h1><h2 id="InnoDB与Myisam"><a href="#InnoDB与Myisam" class="headerlink" title="InnoDB与Myisam ?"></a>InnoDB与Myisam ?</h2><ul>
+<li>InnoDB             **行锁   支持事务          聚集索引   用的是b+树</li>
+<li>Myisam             **表锁   不支持事务        非聚集索引     用的是b树</li>
 </ul>
-<h1 id="B树和B-Tree-区别"><a href="#B树和B-Tree-区别" class="headerlink" title="B树和B+Tree 区别"></a>B树和B+Tree 区别</h1><ul>
-<li>b树 每个节点 key和数据在一起   b+树 数据在叶子节点上,且叶子节点之间相互引用  <img src="https://s2.loli.net/2022/03/07/jmSgiQZdqVW6zwE.png" alt="image-20220307172001114" style="zoom:50%;"></li>
-</ul>
+<h2 id="B树和B-Tree-区别"><a href="#B树和B-Tree-区别" class="headerlink" title="B树和B+Tree 区别"></a>B树和B+Tree 区别</h2><p>1.b+树 数据在叶子节点上</p>
+<p>2.叶子节点  通过双向指针    形成了链表</p>
+<p>3.全表扫描，只需要遍历叶子节点</p>
 <h1 id="Sql调优之多个索引匹配"><a href="#Sql调优之多个索引匹配" class="headerlink" title="Sql调优之多个索引匹配?"></a>Sql调优之多个索引匹配?</h1><p>创建索引的时候</p>
 <p>覆盖索引  减伤回表次数 支持索引下推</p>
 <p>普通索引</p>
-<h1 id="主键-自增，获得数据库最后一条数据"><a href="#主键-自增，获得数据库最后一条数据" class="headerlink" title="[主键]自增，获得数据库最后一条数据"></a>[主键]自增，获得数据库最后一条数据</h1><p>先倒序排序<br>再获得第一条数据</p>
 <h1 id="MySQL常用函数"><a href="#MySQL常用函数" class="headerlink" title="MySQL常用函数"></a>MySQL常用函数</h1><p>聚合函数   count   sum  max  min     avg</p>
-<h1 id="分表怎么实现"><a href="#分表怎么实现" class="headerlink" title="分表怎么实现"></a>分表怎么实现</h1><p>​       </p>
+<p>​       </p>
 <h1 id="左连接-右链接-内连接和全外连接"><a href="#左连接-右链接-内连接和全外连接" class="headerlink" title="左连接  右链接   内连接和全外连接"></a>左连接  右链接   内连接和全外连接</h1><ul>
 <li>left join （左连接）：以左边表所有记录为标准         右表中连接字段相等的记录 ,没有显示null<br>　　right join （右连接）：返回包括右表中的所有记录和左表中连接字段相等的记录。<br>  inner join （内连接）：只返回两个表中连接字段相等的行。</li>
 <li>full join （全外连接）：返回左右表中所有的记录和左右表中连接字段相等的记录</li>
 </ul>
 <hr>
-<p><img src="https://s2.loli.net/2022/03/12/k2jTh5DZfYdcQVC.png" alt="image-20220312153155728"></p>
-<p><img src="https://s2.loli.net/2022/03/12/68WOzi9X3kwUDPb.png" alt="image-20220312153340471"></p>
-<h1 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h1><p><img src="https://s2.loli.net/2022/03/12/4C2rTp7slFR5bhN.png" alt="image-20220312132403594"></p>
+<h2 id="MySQL-数据库-cpu-飙升的话，要怎么处理呢？"><a href="#MySQL-数据库-cpu-飙升的话，要怎么处理呢？" class="headerlink" title="MySQL 数据库 cpu 飙升的话，要怎么处理呢？"></a>MySQL 数据库 cpu 飙升的话，要怎么处理呢？</h2><p>排查过程：</p>
+<p>（1）使用 top 命令观察，确定是 mysqld 导致还是其他原因。</p>
+<p>（2）如果是 mysqld 导致的，show processlist，查看 session 情况，确定是不是有消耗资源的 sql 在运行。</p>
+<p>（3）找出消耗高的 sql，看看执行计划是否准确， 索引是否缺失，数据量是否太大。</p>
+<p>处理：</p>
+<p>（1）kill 掉这些线程 (同时观察 cpu 使用率是否下降)，</p>
+<p>（2）进行相应的调整 (比如说加索引、改 sql、改内存参数)</p>
+<p>（3）重新跑这些 SQL。</p>
+<p>其他情况：</p>
+<p>也有可能是每个 sql 消耗资源并不多，但是突然之间，有大量的 session 连进来导致 cpu 飙升，这种情况就需要跟应用一起来分析为何连接数会激增，再做出相应的调整，比如说限制连接数等</p>
+<h1 id="mysql锁"><a href="#mysql锁" class="headerlink" title="mysql锁"></a>mysql锁</h1><ul>
+<li>有好几种不同分类</li>
+<li>可以分为  行锁  表锁  间隙锁  </li>
+<li>共享锁  也就是读锁  只允许其他事务读,但不能写   排它锁  也就是写锁,其他事物不能读,也不能写</li>
+<li>乐观锁,不是真的去锁,而是通过版本号来实现    悲观锁  行锁 表锁都是悲观锁</li>
+</ul>
+<h2 id="MySQL里记录货币用什么字段类型比较好？"><a href="#MySQL里记录货币用什么字段类型比较好？" class="headerlink" title="MySQL里记录货币用什么字段类型比较好？"></a>MySQL里记录货币用什么字段类型比较好？</h2><p>Decimal和Numric   用得字符串  来算    因为用浮点的话 会有误差</p>
+<h2 id="DATETIME和TIMESTAMP的异同"><a href="#DATETIME和TIMESTAMP的异同" class="headerlink" title="DATETIME和TIMESTAMP的异同"></a>DATETIME和TIMESTAMP的异同</h2><ul>
+<li>表现形式一致 </li>
+<li>datetime 占 8个字节  从1000-9999年   与时区无关<ul>
+<li>timestamp 4个字节    从1970-2038年   与时区关联</li>
+</ul>
+</li>
+</ul>
+<h1 id="mysql-日志-4-2"><a href="#mysql-日志-4-2" class="headerlink" title="mysql 日志  ?  4+2"></a>mysql 日志  ?  4+2</h1><ul>
+<li>general log</li>
+<li>error log</li>
+<li>slow query log</li>
+<li>bin log</li>
+<li>innodb 的redo log 和undo log</li>
+</ul>
+<p><img src="/.io//image-20220626170132490.png" alt="image-20220626170132490"></p>
 
       
     </div>
@@ -684,7 +726,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -762,7 +804,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1ACID%E9%9D%A0%E4%BB%80%E4%B9%88%E4%BF%9D%E8%AF%81"><span class="nav-number">1.</span> <span class="nav-text">事务ACID靠什么保证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B8%83%E7%A7%8D%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA"><span class="nav-number">2.</span> <span class="nav-text">事务七种传播行为</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B8%89%E7%A7%8D%E9%9A%94%E7%A6%BB%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">事务三种隔离问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%A5%BD%E5%A4%84"><span class="nav-number">5.</span> <span class="nav-text">mysql主从同步好处</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">SQL优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#InnoDB%E4%B8%8EMyisam"><span class="nav-number">7.</span> <span class="nav-text">InnoDB与Myisam ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">8.</span> <span class="nav-text">聚集索引和非聚集索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%8E%9F%E5%88%99"><span class="nav-number">9.</span> <span class="nav-text">创建索引原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="nav-number">10.</span> <span class="nav-text">有哪几种索引类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8"><span class="nav-number">11.</span> <span class="nav-text">索引下推</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">慢查询怎么处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99"><span class="nav-number">13.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="nav-number">14.</span> <span class="nav-text">分库分表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E9%94%81"><span class="nav-number">15.</span> <span class="nav-text">mysql锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8E"><span class="nav-number">16.</span> <span class="nav-text">#{}与${}</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">17.</span> <span class="nav-text">sql 模糊查询</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99sql-%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="nav-number">18.</span> <span class="nav-text">如何给sql 传参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81sql-%E6%A0%87%E7%AD%BE"><span class="nav-number">19.</span> <span class="nav-text">动态sql 标签</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E4%B8%BB%E9%94%AE-%E5%9B%9E%E5%A1%AB%E5%88%B0%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-number">20.</span> <span class="nav-text">获取自动生成的主键  (回填到实体类)?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5-%E8%B7%9Fpojo%E4%B8%AD%E5%AD%97%E6%AE%B5%E4%B8%8D%E4%B8%80%E6%A0%B7%E6%80%8E%E4%B9%88%E6%98%A0%E5%B0%84"><span class="nav-number">21.</span> <span class="nav-text">mybatis 数据库字段  跟pojo中字段不一样怎么映射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%9C"><span class="nav-number">22.</span> <span class="nav-text">嵌套查询与嵌套结果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80-%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">23.</span> <span class="nav-text">一对一  多对多</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mybatis%E4%B8%89%E7%A7%8DExecutor%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="nav-number">24.</span> <span class="nav-text">Mybatis三种Executor执行器:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis-%E4%B8%80%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">25.</span> <span class="nav-text">mybatis  一二级缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mp%E4%B8%BB%E9%94%AE%E7%94%9F%E6%88%90%E7%AD%96%E7%95%A5"><span class="nav-number">26.</span> <span class="nav-text">mp主键生成策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB"><span class="nav-number">27.</span> <span class="nav-text">redis为什么快</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B%E6%A0%91%E5%92%8CB-Tree-%E5%8C%BA%E5%88%AB"><span class="nav-number">28.</span> <span class="nav-text">B树和B+Tree 区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sql%E8%B0%83%E4%BC%98%E4%B9%8B%E5%A4%9A%E4%B8%AA%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D"><span class="nav-number">29.</span> <span class="nav-text">Sql调优之多个索引匹配?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE-%E8%87%AA%E5%A2%9E%EF%BC%8C%E8%8E%B7%E5%BE%97%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%80%E5%90%8E%E4%B8%80%E6%9D%A1%E6%95%B0%E6%8D%AE"><span class="nav-number">30.</span> <span class="nav-text">[主键]自增，获得数据库最后一条数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">31.</span> <span class="nav-text">MySQL常用函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E8%A1%A8%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0"><span class="nav-number">32.</span> <span class="nav-text">分表怎么实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A6%E8%BF%9E%E6%8E%A5-%E5%8F%B3%E9%93%BE%E6%8E%A5-%E5%86%85%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">33.</span> <span class="nav-text">左连接  右链接   内连接和全外连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-%E6%A0%91"><span class="nav-number">34.</span> <span class="nav-text">B+树</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1ACID%E9%9D%A0%E4%BB%80%E4%B9%88%E4%BF%9D%E8%AF%81-%E7%9B%B4%E6%8E%A5%E5%9B%9E%E7%AD%94ACID-undolog-redolog-%E8%BF%98%E6%9C%89MVCC"><span class="nav-number">1.1.</span> <span class="nav-text">事务ACID靠什么保证    (直接回答ACID +undolog  redolog  还有MVCC )</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B8%83%E7%A7%8D%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.2.</span> <span class="nav-text">事务七种传播行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E4%B8%89%E7%A7%8D%E9%9A%94%E7%A6%BB%E9%97%AE%E9%A2%98"><span class="nav-number">1.4.</span> <span class="nav-text">事务三种隔离问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">mysql主从同步相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">主从复制原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%BD%E5%A4%84"><span class="nav-number">2.2.</span> <span class="nav-text">好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%BB%B6%E8%BF%9F-%E8%A7%A3%E5%86%B3"><span class="nav-number">2.3.</span> <span class="nav-text">主从同步延迟?解决?</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E8%B0%83%E4%BC%98"><span class="nav-number">3.</span> <span class="nav-text">sql调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">慢查询怎么处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%85%A2-SQL%E4%BC%98%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">(慢)SQL优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2sql%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F-1-%E6%9E%84%E5%BB%BA%E8%99%9A%E6%8B%9F%E8%A1%A8-2-%E6%9D%A1%E4%BB%B6%E8%BF%87%E6%BB%A4-3-%E8%B0%83%E6%95%B4%E9%A1%BA%E5%BA%8F-4-%E8%BF%94%E5%9B%9E"><span class="nav-number">3.3.</span> <span class="nav-text">查询sql执行顺序     (1.构建虚拟表   2.条件过滤  3.调整顺序  4.返回)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">索引原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">4.2.</span> <span class="nav-text">聚集索引和非聚集索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%8E%9F%E5%88%99"><span class="nav-number">4.3.</span> <span class="nav-text">创建索引原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.3.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.4.</span> <span class="nav-text">有哪几种索引类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%B8%8B%E6%8E%A8-mysql-server-%E5%B0%86%E5%88%A4%E6%96%AD%E6%9D%A1%E4%BB%B6-%E4%B8%8B%E6%8E%A8%E7%BB%99-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">4.5.</span> <span class="nav-text">索引下推  mysql server 将判断条件 下推给 存储引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99"><span class="nav-number">4.6.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9E%E8%A1%A8-%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%BA%86%E8%A7%A3%E5%90%97"><span class="nav-number">4.7.</span> <span class="nav-text">回表   覆盖索引了解吗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9B%B8%E5%85%B3"><span class="nav-number">5.</span> <span class="nav-text">分库分表相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%88%86"><span class="nav-number">5.1.</span> <span class="nav-text">怎么分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%88%86%E8%A1%A8-%E7%9A%84%E8%B7%AF%E7%94%B1%E6%96%B9%E5%BC%8F"><span class="nav-number">5.2.</span> <span class="nav-text">水平分表 的路由方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">5.3.</span> <span class="nav-text">分库分表中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E4%BC%9A%E5%B8%A6%E6%9D%A5%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="nav-number">5.4.</span> <span class="nav-text">分库分表会带来什么问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mybatis%E7%9B%B8%E5%85%B3"><span class="nav-number">6.</span> <span class="nav-text">mybatis相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis-%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">6.1.</span> <span class="nav-text">mybatis 优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8E"><span class="nav-number">6.2.</span> <span class="nav-text">#{}与${}</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql-%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="nav-number">6.3.</span> <span class="nav-text">sql 模糊查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99sql-%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="nav-number">6.4.</span> <span class="nav-text">如何给sql 传参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81sql-%E6%A0%87%E7%AD%BE"><span class="nav-number">6.5.</span> <span class="nav-text">动态sql 标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84%E4%B8%BB%E9%94%AE-%E5%9B%9E%E5%A1%AB%E5%88%B0%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-number">6.6.</span> <span class="nav-text">获取自动生成的主键  (回填到实体类)?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%97%E6%AE%B5-%E8%B7%9Fpojo%E4%B8%AD%E5%AD%97%E6%AE%B5%E4%B8%8D%E4%B8%80%E6%A0%B7%E6%80%8E%E4%B9%88%E6%98%A0%E5%B0%84"><span class="nav-number">6.7.</span> <span class="nav-text">mybatis 数据库字段  跟pojo中字段不一样怎么映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E6%9F%A5%E8%AF%A2%E4%B8%8E%E5%B5%8C%E5%A5%97%E7%BB%93%E6%9E%9C"><span class="nav-number">6.8.</span> <span class="nav-text">嵌套查询与嵌套结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80-%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">6.9.</span> <span class="nav-text">一对一  多对多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis%E4%B8%89%E7%A7%8DExecutor%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="nav-number">6.10.</span> <span class="nav-text">Mybatis三种Executor执行器:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mybatis-%E4%B8%80%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">6.11.</span> <span class="nav-text">mybatis  一二级缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">7.</span> <span class="nav-text">引擎与数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB%E4%B8%8EMyisam"><span class="nav-number">7.1.</span> <span class="nav-text">InnoDB与Myisam ?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B%E6%A0%91%E5%92%8CB-Tree-%E5%8C%BA%E5%88%AB"><span class="nav-number">7.2.</span> <span class="nav-text">B树和B+Tree 区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sql%E8%B0%83%E4%BC%98%E4%B9%8B%E5%A4%9A%E4%B8%AA%E7%B4%A2%E5%BC%95%E5%8C%B9%E9%85%8D"><span class="nav-number">8.</span> <span class="nav-text">Sql调优之多个索引匹配?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">MySQL常用函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A6%E8%BF%9E%E6%8E%A5-%E5%8F%B3%E9%93%BE%E6%8E%A5-%E5%86%85%E8%BF%9E%E6%8E%A5%E5%92%8C%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">10.</span> <span class="nav-text">左连接  右链接   内连接和全外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93-cpu-%E9%A3%99%E5%8D%87%E7%9A%84%E8%AF%9D%EF%BC%8C%E8%A6%81%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E5%91%A2%EF%BC%9F"><span class="nav-number">10.1.</span> <span class="nav-text">MySQL 数据库 cpu 飙升的话，要怎么处理呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E9%94%81"><span class="nav-number">11.</span> <span class="nav-text">mysql锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E9%87%8C%E8%AE%B0%E5%BD%95%E8%B4%A7%E5%B8%81%E7%94%A8%E4%BB%80%E4%B9%88%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E5%A5%BD%EF%BC%9F"><span class="nav-number">11.1.</span> <span class="nav-text">MySQL里记录货币用什么字段类型比较好？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DATETIME%E5%92%8CTIMESTAMP%E7%9A%84%E5%BC%82%E5%90%8C"><span class="nav-number">11.2.</span> <span class="nav-text">DATETIME和TIMESTAMP的异同</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql-%E6%97%A5%E5%BF%97-4-2"><span class="nav-number">12.</span> <span class="nav-text">mysql 日志  ?  4+2</span></a></li></ol></div>
             
 
           </div>

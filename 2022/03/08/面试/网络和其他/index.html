@@ -89,7 +89,7 @@
 <meta property="og:description" content="[toc] Http与https在http的基础上加了SSL加密传输协议,也就是安全套接层,这两个端口分别是80和443 ,另外https需要收费的CA证书 TCP与UDP传输控制协议   面向连接  通过三次握手确保可靠连接    用户数据报      无连接不可靠       数据包可能丢失 浏览器输入 URL 回车之后发生了什么 Url解析  判断是一个搜索的关键字还是合法的url   DN">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-03-08T08:15:07.655Z">
-<meta property="article:modified_time" content="2022-06-14T13:02:38.043Z">
+<meta property="article:modified_time" content="2022-06-20T10:28:59.712Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
 
@@ -401,11 +401,21 @@
 <p>b确认 ACK置为1</p>
 <p>b把反方向 控制位FIN置为1</p>
 <p>a确认ACK置为1</p>
+<h1 id="http2-0"><a href="#http2-0" class="headerlink" title="http2.0"></a>http2.0</h1><ul>
+<li>二进制分帧  将http响应 划分为    headers 和data 的两个 frame   并且采用二进制编码</li>
+<li>多路复用  一个TCP连接多个通信</li>
+<li>头部压缩  一个网页的很多请求头都是相同的           可以维护一份动态字典   第二次传输索引就行</li>
+<li>服务器端推送</li>
+</ul>
+<h1 id="rpc与http"><a href="#rpc与http" class="headerlink" title="rpc与http"></a>rpc与http</h1><p>RPC主要是基于TCP&#x2F;IP协议的，而HTTP服务主要是基于HTTP协议</p>
+<p>RPC基于长链接，不必3次握手，减少了网络开销；</p>
+<p>其次就是RPC框架一般都有注册中心，有丰富的监控管理；发布、下线接口、动态扩展等，对调用方来说是无感知、统一化的操作。</p>
 <h1 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h1><p>200成功 </p>
 <p>3** 重定向</p>
 <p>4**客户端请求错误</p>
 <p>5**服务端错误 </p>
 <h1 id="NginX-如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思"><a href="#NginX-如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思" class="headerlink" title="NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思"></a>NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思</h1><p>**随机、加权随机、轮询、加权轮询 **<strong>源地址hash、最小连接数法</strong></p>
+<h1 id="linux相关"><a href="#linux相关" class="headerlink" title="linux相关"></a>linux相关</h1><p><a target="_blank" rel="noopener" href="https://github.com/moxi624/LearningNotes/blob/master/%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95/JUC/13_Linux%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/README.md">https://github.com/moxi624/LearningNotes/blob/master/%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95/JUC/13_Linux%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4/README.md</a></p>
 
       
     </div>
@@ -534,7 +544,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -612,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Http%E4%B8%8Ehttps"><span class="nav-number">1.</span> <span class="nav-text">Http与https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP%E4%B8%8EUDP"><span class="nav-number">2.</span> <span class="nav-text">TCP与UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5-URL-%E5%9B%9E%E8%BD%A6%E4%B9%8B%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">浏览器输入 URL 回车之后发生了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Linux命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">三次握手  四次挥手过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NginX-%E5%A6%82%E4%BD%95%E5%81%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E3%80%81%E5%B8%B8%E8%A7%81%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%E3%80%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">7.</span> <span class="nav-text">NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Http%E4%B8%8Ehttps"><span class="nav-number">1.</span> <span class="nav-text">Http与https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP%E4%B8%8EUDP"><span class="nav-number">2.</span> <span class="nav-text">TCP与UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5-URL-%E5%9B%9E%E8%BD%A6%E4%B9%8B%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">浏览器输入 URL 回车之后发生了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Linux命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B-%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">三次握手  四次挥手过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http2-0"><span class="nav-number">6.</span> <span class="nav-text">http2.0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rpc%E4%B8%8Ehttp"><span class="nav-number">7.</span> <span class="nav-text">rpc与http</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">8.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NginX-%E5%A6%82%E4%BD%95%E5%81%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E3%80%81%E5%B8%B8%E8%A7%81%E7%9A%84%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%E3%80%81%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">9.</span> <span class="nav-text">NginX 如何做负载均衡、常见的负载均衡算法有哪些、一致性哈希的一致性是什么意思</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux%E7%9B%B8%E5%85%B3"><span class="nav-number">10.</span> <span class="nav-text">linux相关</span></a></li></ol></div>
             
 
           </div>

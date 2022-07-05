@@ -89,8 +89,9 @@
 <meta property="og:description" content="[toc] Springboot帮你配置了什么? webmvcautoconfuguration   读取webmvcproperties文件中的默认信息  boot配置文件加载顺序 当前项目下  config目录有没有配置文件  当前项目下有没有配置文件   resources下的config目录有没有配置文件  resources目录下有没有配置文件 boot读取配置文件@value  @Co">
 <meta property="og:locale">
 <meta property="og:image" content="https://s2.loli.net/2022/02/27/trOmcIeqFvKywXJ.png">
+<meta property="og:image" content="https://pavaneyu.github.io/AppData/Roaming/Typora/typora-user-images/image-20220624180003715.png">
 <meta property="article:published_time" content="2022-02-26T10:17:15.442Z">
-<meta property="article:modified_time" content="2022-06-15T06:03:46.592Z">
+<meta property="article:modified_time" content="2022-06-27T09:38:39.329Z">
 <meta property="article:author" content="OuyangYu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2022/02/27/trOmcIeqFvKywXJ.png">
@@ -372,14 +373,17 @@
 </li>
 </ul>
 <h1 id="BeanFactory-与ApplicationContext"><a href="#BeanFactory-与ApplicationContext" class="headerlink" title="BeanFactory 与ApplicationContext"></a>BeanFactory 与ApplicationContext</h1><ul>
-<li>ApplicationContext  是BeanFactory的子接口,都是一种IOC容器,都可以用getBean方法获取bean</li>
-<li>ApplicationContext  启动容器的时候就实例化bean,不会等到调用getBean方法</li>
-<li>ApplicationContext  提供了更高级的功能,使用优先级大于BeanFactory</li>
+<li>ApplicationContext  是BeanFactory的子接口</li>
+<li>ApplicationContext  启动的时候就实例化bean,不会等到要用时候 </li>
+<li>优先选择ApplicationContext</li>
 </ul>
 <h1 id="Spring-和MVC-和boot-区别"><a href="#Spring-和MVC-和boot-区别" class="headerlink" title="Spring   和MVC  和boot  区别"></a>Spring   和MVC  和boot  区别</h1><ul>
 <li>Spring 是轻量级java框架,核心是IOC与AOP  还有其他的Spring全家桶</li>
 <li>MVC是基于Spring的MVC框架,解决web开发问题</li>
-<li>boot是为了简化开发,  convention  over configuration 原则  更高效搭建应用</li>
+<li>boot是为了简化开发 可以快速创建应用,  convention  over configuration 原则  <ul>
+<li>内嵌web容器 摒弃了繁琐的xml配置    starter方便 整合其他框架</li>
+</ul>
+</li>
 </ul>
 <h1 id="MVC流程-以dispatchServlet为核心-7步"><a href="#MVC流程-以dispatchServlet为核心-7步" class="headerlink" title="MVC流程 ?   以dispatchServlet为核心   7步"></a>MVC流程 ?   以dispatchServlet为核心   7步</h1><p><img src="https://s2.loli.net/2022/02/27/trOmcIeqFvKywXJ.png" alt="SpringMVC.jpg"></p>
 <h1 id="spring中-component和-Bean的区别"><a href="#spring中-component和-Bean的区别" class="headerlink" title="spring中@component和@Bean的区别"></a>spring中@component和@Bean的区别</h1><ol>
@@ -394,7 +398,7 @@
 </li>
 </ul>
 <h1 id="Spring事务隔离级别-Isolation枚举类的五个值"><a href="#Spring事务隔离级别-Isolation枚举类的五个值" class="headerlink" title="Spring事务隔离级别 Isolation枚举类的五个值 ?"></a>Spring事务隔离级别 Isolation枚举类的五个值 ?</h1><ul>
-<li><p>默认  ,也就是采用数据库的默认的隔离级别    </p>
+<li><p>默认  ,也就是采用后端数据库的隔离级别    </p>
 </li>
 <li><p>读取未提交内容  –产生<strong>脏读</strong>  幻读  不可重复读 很少用</p>
 </li>
@@ -420,9 +424,19 @@
 <p>4.观察者模式  ApplicationEvent   ApplicationListoner</p>
 <p>5.适配器模式   </p>
 <p>6.装饰者模式   wrapper   decorator</p>
-<h1 id="Spring事务实现原理"><a href="#Spring事务实现原理" class="headerlink" title="Spring事务实现原理"></a>Spring事务实现原理</h1><ul>
-<li>通过声明式事务  @Transaction </li>
-<li>通过动态代理,生成代理对象</li>
+<h1 id="Spring声明式事务实现原理"><a href="#Spring声明式事务实现原理" class="headerlink" title="Spring声明式事务实现原理"></a>Spring声明式事务实现原理</h1><ul>
+<li>通过aop动态代理</li>
+</ul>
+<h1 id="transactional-失效的场景"><a href="#transactional-失效的场景" class="headerlink" title="transactional 失效的场景"></a>transactional 失效的场景</h1><ul>
+<li><p>propagation 或者 rollbackfor 属性设置错误</p>
+</li>
+<li><p>非public方法  因为cglib动态代理 是重写 父类方法的   必须保证能够被重写</p>
+</li>
+<li><p>被同类方法调用,没有走 代理</p>
+</li>
+<li><p>异常被捕获, 导致无法因为异常而回滚 , 需要再catch里面  手动 回滚</p>
+<p><img src="../../../../../AppData/Roaming/Typora/typora-user-images/image-20220624180003715.png" alt="image-20220624180003715"></p>
+</li>
 </ul>
 <h1 id="Bean的作用域"><a href="#Bean的作用域" class="headerlink" title="Bean的作用域"></a>Bean的作用域</h1><ul>
 <li>@scope</li>
@@ -456,34 +470,39 @@
 <li>如果属性是可选的,使用setter方法上加@Autowired注入</li>
 <li>filed 注入不推荐使用</li>
 </ul>
-<h1 id="Springboot常用注解"><a href="#Springboot常用注解" class="headerlink" title="Springboot常用注解"></a>Springboot常用注解</h1><ul>
-<li><p>启动类的SpringBootApplication  这个是一个复合注解 他包含     </p>
+<h1 id="spring怎么解决循环依赖的"><a href="#spring怎么解决循环依赖的" class="headerlink" title="spring怎么解决循环依赖的"></a>spring怎么解决循环依赖的</h1><p>Spring能解决setter注入的循环依赖了，因为实例化和属性赋值是分开的</p>
 <ul>
-<li>SpringBootConfiguration     </li>
-<li>EnableAutoConfiguration开启自动配置  </li>
-<li>ComponentScan组件扫描</li>
+<li><strong>属性赋值</strong>，过程，Spring 通过<strong>三级缓存</strong><ul>
+<li>​    一级缓存 是 单例池  保存          完全初始化完成的bean</li>
+<li>二级缓存 是早期曝光对象 保存    仅实例化后的bean</li>
+<li>三级缓存是  bean创建工厂  以便以后有机会创建代理对象</li>
 </ul>
 </li>
-<li><p>加在类上的注解</p>
+</ul>
+<h1 id="Springboot常用注解"><a href="#Springboot常用注解" class="headerlink" title="Springboot常用注解"></a>Springboot常用注解</h1><ul>
+<li><p>启动类的SpringBootApplication  这个是一个复合注解 他包含   Configuration  EnableAutoConfiguration    ComponentScan</p>
+</li>
+<li><p>web相关</p>
 <ul>
 <li><p>cotroller  ,RestController 用在控制层,其中后者将返回对象直接作为响应体</p>
 </li>
-<li><p>@Repository  用在dao层  @Service用在服务层   通用的话就是@Component </p>
+<li><p>@RequestMapping 请求映射  ,分得更细一点GetMapping  PostMapping</p>
 </li>
-<li><p>@Autowired 按类型注入  @resouces按名称导入</p>
+<li><p>在方法参数里面   @pathvariable     @RequestParam获取请求头里面参数</p>
 </li>
 </ul>
 </li>
-<li><p>其中加在方法上的注解  </p>
+<li><p>容器相关  </p>
 <ul>
-<li>@RequestMapping 请求映射  ,分得更细一点GetMapping  PostMapping分别处理get请求和post请求    </li>
-<li>在方法参数里面还有pathvariable  得到url路径里面的变量   @RequestParam获取请求头里面参数</li>
+<li>@Repository  用在dao层  @Service用在服务层   通用的话就是@Component </li>
+<li>@Autowired 按类型注入  @resouces按名称导入</li>
 <li>@bean 标在配置类的方法上面,表示将方法的返回类型作为一个组件</li>
 </ul>
 </li>
 <li><p>声明式事务管理  @Transactional</p>
 </li>
 </ul>
+<h1 id="Autowired的实现原理"><a href="#Autowired的实现原理" class="headerlink" title="@Autowired的实现原理"></a>@Autowired的实现原理</h1><p>Bean后置处理器   <strong>AutowiredAnnotationBeanPostProcessor</strong></p>
 <h1 id="SpringBoot自动配置原理"><a href="#SpringBoot自动配置原理" class="headerlink" title="SpringBoot自动配置原理"></a>SpringBoot自动配置原理</h1><p><code>@SpringBootApplication</code>等同于下面三个注解：</p>
 <ul>
 <li><p><code>@SpringBootConfiguration</code></p>
@@ -492,13 +511,14 @@
 <p><code>@ComponentScan</code></p>
 </li>
 </ul>
-<p>其中<code>@EnableAutoConfiguration</code>是关键(启用自动配置)，内部实际上就去加载<code>META-INF/spring.factories</code>文件的信息，然后筛选出以<code>EnableAutoConfiguration</code>为key的数据，加载到IOC容器中，实现自动配置功能！</p>
+<p>其中<code>@EnableAutoConfiguration</code>是关键内部实际上就去加载<code>META-INF/spring.factories</code>文件的信息，然后筛选出以<code>EnableAutoConfiguration</code>为key的数据，加载到IOC容器中，实现自动配置功能！</p>
 <h1 id="自定义starter"><a href="#自定义starter" class="headerlink" title="自定义starter"></a>自定义starter</h1><ul>
 <li>包含两个信息   依赖  和 配置</li>
-<li>@ConfigurationProperties定义配置属性类,读取配置文件 </li>
+<li>@ConfigurationProperties定义配置类  </li>
 <li>编写自动配置类   @Configuration   @EnableConfigurationProperties  开启配置属性</li>
+<li>spring.factories 添加自动配置类的路径</li>
+<li></li>
 <li>在maven中intall 到本地仓库  或者deploy到远程仓库</li>
-<li>在其他项目引入坐标依赖</li>
 </ul>
 <h1 id="Servlet-生命周期"><a href="#Servlet-生命周期" class="headerlink" title="Servlet 生命周期"></a>Servlet 生命周期</h1><ul>
 <li>init方法 初始化</li>
@@ -633,7 +653,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -711,7 +731,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Springboot%E5%B8%AE%E4%BD%A0%E9%85%8D%E7%BD%AE%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Springboot帮你配置了什么?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">boot配置文件加载顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">boot读取配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BeanFactory-%E4%B8%8EApplicationContext"><span class="nav-number">4.</span> <span class="nav-text">BeanFactory 与ApplicationContext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-%E5%92%8CMVC-%E5%92%8Cboot-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">Spring   和MVC  和boot  区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC%E6%B5%81%E7%A8%8B-%E4%BB%A5dispatchServlet%E4%B8%BA%E6%A0%B8%E5%BF%83-7%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">MVC流程 ?   以dispatchServlet为核心   7步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring%E4%B8%AD-component%E5%92%8C-Bean%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">spring中@component和@Bean的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%8BBean%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84"><span class="nav-number">8.</span> <span class="nav-text">单例Bean不是线程安全的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-Isolation%E6%9E%9A%E4%B8%BE%E7%B1%BB%E7%9A%84%E4%BA%94%E4%B8%AA%E5%80%BC"><span class="nav-number">9.</span> <span class="nav-text">Spring事务隔离级别 Isolation枚举类的五个值 ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%ADpropogation%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">Spring事务传播propogation机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">Spring设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">Spring事务实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">13.</span> <span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-Spring%E6%80%8E%E4%B9%88%E5%88%9B%E5%BB%BAbean"><span class="nav-number">14.</span> <span class="nav-text">Bean的生命周期(Spring怎么创建bean)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4aop"><span class="nav-number">15.</span> <span class="nav-text">说说aop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%AD-jdk%E4%B8%8Ecglib%E5%8C%BA%E5%88%AB"><span class="nav-number">16.</span> <span class="nav-text">AOP动态代理中  jdk与cglib区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%B8%AD%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5"><span class="nav-number">17.</span> <span class="nav-text">Spring中类的属性注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Springboot%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-number">18.</span> <span class="nav-text">Springboot常用注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86"><span class="nav-number">19.</span> <span class="nav-text">SpringBoot自动配置原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89starter"><span class="nav-number">20.</span> <span class="nav-text">自定义starter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">21.</span> <span class="nav-text">Servlet 生命周期</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Springboot%E5%B8%AE%E4%BD%A0%E9%85%8D%E7%BD%AE%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Springboot帮你配置了什么?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">boot配置文件加载顺序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#boot%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">boot读取配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BeanFactory-%E4%B8%8EApplicationContext"><span class="nav-number">4.</span> <span class="nav-text">BeanFactory 与ApplicationContext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-%E5%92%8CMVC-%E5%92%8Cboot-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">Spring   和MVC  和boot  区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC%E6%B5%81%E7%A8%8B-%E4%BB%A5dispatchServlet%E4%B8%BA%E6%A0%B8%E5%BF%83-7%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">MVC流程 ?   以dispatchServlet为核心   7步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring%E4%B8%AD-component%E5%92%8C-Bean%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">spring中@component和@Bean的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%8BBean%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84"><span class="nav-number">8.</span> <span class="nav-text">单例Bean不是线程安全的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB-Isolation%E6%9E%9A%E4%B8%BE%E7%B1%BB%E7%9A%84%E4%BA%94%E4%B8%AA%E5%80%BC"><span class="nav-number">9.</span> <span class="nav-text">Spring事务隔离级别 Isolation枚举类的五个值 ?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%ADpropogation%E6%9C%BA%E5%88%B6"><span class="nav-number">10.</span> <span class="nav-text">Spring事务传播propogation机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">Spring设计模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">12.</span> <span class="nav-text">Spring声明式事务实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#transactional-%E5%A4%B1%E6%95%88%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">13.</span> <span class="nav-text">transactional 失效的场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">14.</span> <span class="nav-text">Bean的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-Spring%E6%80%8E%E4%B9%88%E5%88%9B%E5%BB%BAbean"><span class="nav-number">15.</span> <span class="nav-text">Bean的生命周期(Spring怎么创建bean)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4aop"><span class="nav-number">16.</span> <span class="nav-text">说说aop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E4%B8%AD-jdk%E4%B8%8Ecglib%E5%8C%BA%E5%88%AB"><span class="nav-number">17.</span> <span class="nav-text">AOP动态代理中  jdk与cglib区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E4%B8%AD%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7%E6%B3%A8%E5%85%A5"><span class="nav-number">18.</span> <span class="nav-text">Spring中类的属性注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E7%9A%84"><span class="nav-number">19.</span> <span class="nav-text">spring怎么解决循环依赖的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Springboot%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3"><span class="nav-number">20.</span> <span class="nav-text">Springboot常用注解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autowired%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">21.</span> <span class="nav-text">@Autowired的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86"><span class="nav-number">22.</span> <span class="nav-text">SpringBoot自动配置原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89starter"><span class="nav-number">23.</span> <span class="nav-text">自定义starter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">24.</span> <span class="nav-text">Servlet 生命周期</span></a></li></ol></div>
             
 
           </div>
